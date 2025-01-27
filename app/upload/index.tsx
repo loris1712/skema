@@ -11,21 +11,19 @@ const UploadPage = () => {
     const pickDocument = async () => {
         try {
             const result = await DocumentPicker.getDocumentAsync({ type: "application/pdf" })
-            setSelectedDocument(result)
+            const {assets = []} = result;
+            setSelectedDocument(assets?.[0])
+            console.log(result)
         } catch (err) {
             console.error("Error picking document:", err)
         }
     }
 
     const processDocument = () => {
-        if (selectedDocument && selectedDocument.type === "success") {
-            // Here we would normally process the document with Google Gemini
-            // For now, we'll just navigate to the mind map screen with the document name
-            router.push({
-                pathname: "/",
-                params: { documentName: selectedDocument.name },
-            })
-        }
+        router.push({
+            pathname: "/",
+            params: { documentName: selectedDocument.name },
+        })
     }
 
     return (
@@ -33,7 +31,7 @@ const UploadPage = () => {
             <TouchableOpacity style={styles.button} onPress={pickDocument}>
                 <Text style={styles.buttonText}>Select PDF</Text>
             </TouchableOpacity>
-            {selectedDocument && selectedDocument.type === "success" && (
+            {selectedDocument && !!selectedDocument?.name && (
                 <View>
                     <Text style={styles.selectedText}>Selected: {selectedDocument.name}</Text>
                     <TouchableOpacity style={styles.button} onPress={processDocument}>

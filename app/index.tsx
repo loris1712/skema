@@ -1,13 +1,17 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
-import { Link } from "expo-router"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {Link} from "expo-router"
 
 export default function HomeScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>PDF Mind Map Creator</Text>
-            <Link href={{pathname: "/upload"}}>
-                <Text style={styles.buttonText}>Saved Documents</Text>
-            </Link>
+
+            <TouchableOpacity style={styles.button}>
+                <Link href={{pathname: "/upload"}}>
+                    <Text style={styles.buttonText}>New Document</Text>
+                </Link>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Saved Documents</Text>
             </TouchableOpacity>

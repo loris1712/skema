@@ -52,7 +52,8 @@ function RootLayoutNav() {
           headerTitle: "Home"
         }}/>
         <Stack.Screen name={"upload"} options={{
-          headerTitle: "Upload New Doc"
+          headerTitle: "Upload New Doc",
+          headerShown: false,
         }}/>
       </Stack>
     </ThemeProvider>
