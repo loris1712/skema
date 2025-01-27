@@ -4,15 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="" />
+    <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/upload/_layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/upload/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/two.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2sDAeEt6Fab2wdzBw9MffWs9qyN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,17 +43,24 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "React Native.Android.executor": "Run",
+    "React Native.iOS.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/archie/WebstormProjects/Personal/skema",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
+    "npm.android.executor": "Run",
+    "ts.external.directory.path": "/Users/archie/WebstormProjects/Personal/skema/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="React Native.iOS">
+  <component name="RunManager" selected="npm.android">
     <configuration name="Android" type="ReactNative" factoryName="React Native">
       <working-dir value="$PROJECT_DIR$" />
       <node-interpreter value="project" />
@@ -53,6 +83,21 @@
         <option name="ReactNativePackager" enabled="true" />
       </method>
     </configuration>
+    <configuration name="android" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="android" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.android" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -70,6 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1737979864301</updated>
       <workItem from="1737979865465" duration="188000" />
+      <workItem from="1737982555059" duration="7186000" />
     </task>
     <servers />
   </component>
