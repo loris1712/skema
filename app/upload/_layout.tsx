@@ -7,6 +7,7 @@ const UploadLayout = () => {
             <Stack.Screen name={"index"}
                           options={{
                               headerTitle:"Upload Documents",
+                              headerShown: false
                           }}/>
         </Stack>
     )

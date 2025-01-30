@@ -1,48 +1,33 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
-import {Link} from "expo-router"
+import {StyleSheet, Text, TouchableOpacity, View, Image} from "react-native"
+import {Link, Stack, useRouter} from "expo-router"
+import Colors from "@/constants/Colors"
+import { normalize } from "@/utils/normalize";
+import AppIcon from "@/atoms/AppIcon";
 
 export default function HomeScreen() {
+    const router = useRouter()
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>PDF Mind Map Creator</Text>
-
-            <TouchableOpacity style={styles.button}>
-                <Link href={{pathname: "/upload"}}>
-                    <Text style={styles.buttonText}>New Document</Text>
-                </Link>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Saved Documents</Text>
-            </TouchableOpacity>
-        </View>
-    )
+      <View style={styles.container}>
+        <AppIcon size={220} />
+        <TouchableOpacity onPress={() => router.replace('/upload')}>
+          <Text>On Board</Text>
+        </TouchableOpacity>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
+        backgroundColor: Colors.dark.background,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent:'center'
     },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 20,
-    },
-    button: {
-        backgroundColor: "#007AFF",
-        padding: 15,
-        borderRadius: 5,
-        marginVertical: 10,
-        width: "100%",
-        alignItems: "center",
-    },
-    buttonText: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-    },
+    logoImageLarge: {
+        height: normalize(220),
+        width: normalize(187.5)
+    }
 })
+
 

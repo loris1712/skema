@@ -1,10 +1,11 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -13,16 +14,19 @@ export {
 } from 'expo-router';
 
 export const unstable_settings = {
-  initialRouteName: '',
+  initialRouteName: 'index',
 };
 
 SplashScreen.preventAutoHideAsync().then(console.log);
 
 export default function RootLayout() {
+  
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
+
+  const router = useRouter();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -32,6 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync().then(console.log);
+      router.push('/upload')
     }
   }, [loaded]);
 
@@ -47,14 +52,25 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack >
-        <Stack.Screen name={"index"} options={{
-          headerTitle: "Home"
-        }}/>
-        <Stack.Screen name={"upload"} options={{
-          headerTitle: "Upload New Doc",
-          headerShown: false,
-        }}/>
+      <Stack initialRouteName='upload'>
+        <Stack.Screen
+          name={'index'}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={'onboarding'}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={'upload'}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

@@ -1,74 +1,90 @@
-import React, { useState } from "react"
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
-import * as DocumentPicker from "expo-document-picker"
-import { useRouter } from "expo-router"
+import React, { useState } from 'react';
+import { TouchableOpacity, StyleSheet } from 'react-native';
+import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+import { Buffer } from 'buffer';
+import { useRouter } from 'expo-router';
 
+import { View } from '@/components/Themed';
+import shared from '@/styles/shared';
+import PageLogoHeading from '@/atoms/PageLogoHeading';
+import { normalize } from '@/utils/normalize';
+import FileUploadButton from '@/atoms/FileUploadButton';
+import PrimaryButton from '@/atoms/PrimaryButton';
 
 const UploadPage = () => {
-    const [selectedDocument, setSelectedDocument] = useState<any | null>(null)
-    const router = useRouter()
+  const [selectedDocument, setSelectedDocument] = useState<any | null>(null);
+  const router = useRouter();
 
-    const pickDocument = async () => {
-        try {
-            const result = await DocumentPicker.getDocumentAsync({ type: "application/pdf" })
-            const {assets = []} = result;
-            setSelectedDocument(assets?.[0])
-            console.log(result)
-        } catch (err) {
-            console.error("Error picking document:", err)
-        }
+  const pickDocument = async (type: string) => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type,
+        copyToCacheDirectory: true,
+      });
+      if (result.assets && result.assets.length > 0) {
+        setSelectedDocument(result.assets?.[0]);
+        const [selectedFile] = result.assets;
+        console.log('Selected file:', selectedFile.name);
+
+        // Read file content as base64
+        const base64Content = await FileSystem.readAsStringAsync(
+          selectedFile.uri,
+          { encoding: FileSystem.EncodingType.Base64 },
+        );
+
+        // Convert base64 to byte array (Uint8Array)
+        const byteData = Buffer.from(base64Content, 'base64');
+        console.log({ byteData });
+      }
+      console.log(result);
+    } catch (err) {
+      console.error('Error picking document:', err);
     }
+  };
 
-    const processDocument = () => {
-        router.push({
-            pathname: "/",
-            params: { documentName: selectedDocument.name },
-        })
-    }
+  const processDocument = () => {
+    router.push({
+      pathname: '/',
+      params: { documentName: selectedDocument.name },
+    });
+  };
 
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={pickDocument}>
-                <Text style={styles.buttonText}>Select PDF</Text>
-            </TouchableOpacity>
-            {selectedDocument && !!selectedDocument?.name && (
-                <View>
-                    <Text style={styles.selectedText}>Selected: {selectedDocument.name}</Text>
-                    <TouchableOpacity style={styles.button} onPress={processDocument}>
-                        <Text style={styles.buttonText}>Process Document</Text>
-                    </TouchableOpacity>
-                </View>
-            )}
+  return (
+    <View style={{ ...shared.pageContainer }}>
+      <View style={styles.headerContainer}>
+        <PageLogoHeading title="Carica il tuo file" />
+      </View>
+
+      <View style={styles.uploadButtonsWrapper}>
+        <TouchableOpacity onPress={() => pickDocument('application/pdf')}>
+          <FileUploadButton text="PDF File" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => pickDocument('application/pdf')}>
+          <FileUploadButton text="Word File" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => pickDocument('application/pdf')}>
+          <FileUploadButton text="Audio File" />
+        </TouchableOpacity>
+      </View>
+
+      {!!selectedDocument?.name && (
+        <View>
+          <PrimaryButton onPress={() => {}} text="Genera Mappa" />
         </View>
-    )
-}
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-    },
-    button: {
-        backgroundColor: "#007AFF",
-        padding: 15,
-        borderRadius: 5,
-        marginVertical: 10,
-        width: "100%",
-        alignItems: "center",
-    },
-    buttonText: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    selectedText: {
-        marginVertical: 10,
-        fontSize: 16,
-    },
-})
+  headerContainer: {
+    height: normalize(92),
+    justifyContent: 'center',
+  },
+  uploadButtonsWrapper: {
+    flex:1
+  },
+});
 
-
-
-export default UploadPage
+export default UploadPage;
