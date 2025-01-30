@@ -11,6 +11,7 @@ import PageLogoHeading from '@/atoms/PageLogoHeading';
 import { normalize } from '@/utils/normalize';
 import FileUploadButton from '@/atoms/FileUploadButton';
 import PrimaryButton from '@/atoms/PrimaryButton';
+import { geminiRequest } from '@/services/gemini';
 
 const UploadPage = () => {
   const [selectedDocument, setSelectedDocument] = useState<any | null>(null);
@@ -33,9 +34,16 @@ const UploadPage = () => {
           { encoding: FileSystem.EncodingType.Base64 },
         );
 
-        // Convert base64 to byte array (Uint8Array)
-        const byteData = Buffer.from(base64Content, 'base64');
-        console.log({ byteData });
+        try{
+          const geminiResponse = await geminiRequest(base64Content);
+          if(geminiResponse){
+            const responseJson = JSON.parse(geminiResponse);
+            console.table(responseJson);
+          }
+        }catch(e){
+          console.log(e)
+        }
+        
       }
       console.log(result);
     } catch (err) {

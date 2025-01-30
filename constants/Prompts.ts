@@ -77,10 +77,10 @@ Link references to their corresponding sections or data.
 Sample output JSON Structure:
 {
     "nodes": [
-        { "id": "1", "label": "Main Topic", "connections": ["2", "3"] },
-        { "id": "2", "label": "Subtopic 1", "connections": ["4"] },
-        { "id": "3", "label": "Subtopic 2", "connections": [] },
-        { "id": "4", "label": "Detail 1", "connections": [] }
+        { "id": "1", "label": "Main Topic", "connections": ["2", "3"], "content": "Description for Main Topic " },
+        { "id": "2", "label": "Subtopic 1", "connections": ["4"],"content": "Description for Subtopic 1 " },
+        { "id": "3", "label": "Subtopic 2", "connections": [],"content": "Description for Subtopic 2" },
+        { "id": "4", "label": "Detail 1", "connections": [],"content": "Description for Details 1" }
     ]
 }
 `;
