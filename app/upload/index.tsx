@@ -12,10 +12,11 @@ import { normalize } from '@/utils/normalize';
 import FileUploadButton from '@/atoms/FileUploadButton';
 import PrimaryButton from '@/atoms/PrimaryButton';
 import { geminiRequest } from '@/services/gemini';
+import DashedLine from '@/atoms/DashedLine';
 
 const UploadPage = () => {
-  const [selectedDocument, setSelectedDocument] = useState<any | null>(null);
-  const router = useRouter();
+  const [selectedFile, setSelectedFile] = useState<any | null>(null);
+  const [selectedType, setSelectedType] = useState<'pdf' | 'word' | 'audio' | null>(null)
 
   const pickDocument = async (type: string) => {
     try {
@@ -24,26 +25,7 @@ const UploadPage = () => {
         copyToCacheDirectory: true,
       });
       if (result.assets && result.assets.length > 0) {
-        setSelectedDocument(result.assets?.[0]);
-        const [selectedFile] = result.assets;
-        console.log('Selected file:', selectedFile.name);
-
-        // Read file content as base64
-        const base64Content = await FileSystem.readAsStringAsync(
-          selectedFile.uri,
-          { encoding: FileSystem.EncodingType.Base64 },
-        );
-
-        try{
-          const geminiResponse = await geminiRequest(base64Content);
-          if(geminiResponse){
-            const responseJson = JSON.parse(geminiResponse);
-            console.table(responseJson);
-          }
-        }catch(e){
-          console.log(e)
-        }
-        
+        setSelectedFile(result.assets?.[0]);
       }
       console.log(result);
     } catch (err) {
@@ -51,12 +33,29 @@ const UploadPage = () => {
     }
   };
 
-  const processDocument = () => {
-    router.push({
-      pathname: '/',
-      params: { documentName: selectedDocument.name },
+  const processDocument = async () => {
+    console.log('Selected file:', selectedFile.name);
+
+    // Read file content as base64
+    const base64Content = await FileSystem.readAsStringAsync(selectedFile.uri, {
+      encoding: FileSystem.EncodingType.Base64,
     });
+
+    try {
+      const geminiResponse = await geminiRequest(base64Content);
+      if (geminiResponse) {
+        const responseJson = JSON.parse(geminiResponse);
+        console.table(responseJson);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  const onCancel = () => {
+    setSelectedFile(null);
+    setSelectedType(null)
+  }
 
   return (
     <View style={{ ...shared.pageContainer }}>
@@ -65,18 +64,52 @@ const UploadPage = () => {
       </View>
 
       <View style={styles.uploadButtonsWrapper}>
-        <TouchableOpacity onPress={() => pickDocument('application/pdf')}>
-          <FileUploadButton text="PDF File" />
+        <DashedLine />
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedType('pdf');
+            pickDocument('application/pdf');
+          }}
+        >
+          <FileUploadButton
+            selected={selectedFile?.name && selectedType === 'pdf'}
+            filename={selectedFile?.name}
+            text="PDF File"
+            onCancel={onCancel}
+          />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => pickDocument('application/pdf')}>
-          <FileUploadButton text="Word File" />
+        <DashedLine />
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedType('word');
+            pickDocument('application/msword');
+          }}
+        >
+          <FileUploadButton
+            selected={selectedFile?.name && selectedType === 'word'}
+            filename={selectedFile?.name}
+            text="Word File"
+            onCancel={onCancel}
+          />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => pickDocument('application/pdf')}>
-          <FileUploadButton text="Audio File" />
+        <DashedLine />
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedType('audio');
+            pickDocument('/mp3');
+          }}
+        >
+          <FileUploadButton
+            selected={selectedFile?.name && selectedType === 'audio'}
+            filename={selectedFile?.name}
+            text="Audio File"
+            onCancel={onCancel}
+          />
         </TouchableOpacity>
+        <DashedLine />
       </View>
 
-      {!!selectedDocument?.name && (
+      {!!selectedFile?.name && (
         <View>
           <PrimaryButton onPress={() => {}} text="Genera Mappa" />
         </View>
@@ -87,8 +120,9 @@ const UploadPage = () => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: normalize(92),
+    height: normalize(120),
     justifyContent: 'center',
+    marginVertical: normalize(16)
   },
   uploadButtonsWrapper: {
     flex:1
