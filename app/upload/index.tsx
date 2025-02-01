@@ -55,7 +55,7 @@ const UploadPage = () => {
           extension: selectedType,
           fileHash: fileHash,
         };
-        console.table({ payload });
+        console.log({payload})
       }
     } catch (e) {
       console.log(e);

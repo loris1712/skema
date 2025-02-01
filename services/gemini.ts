@@ -18,14 +18,14 @@ const schema = {
       label: {
         type: SchemaType.STRING,
       },
+      content: {
+        type: SchemaType.STRING
+      },
       connections: {
         type: SchemaType.ARRAY,
         items: {
           type: SchemaType.STRING,
         },
-      },
-      content: {
-        type: SchemaType.STRING
       }
     },
   },
@@ -61,7 +61,8 @@ export const geminiRequest = async (fileBuffer: any) => {
       },
       `${MINDMAP_AI_PROMPT}`,
     ]);
-    return result.response.text();
+    const response = result.response.text();
+    return response;
   } catch (e) {
     console.log("GEMINI ERROR", {e})
     return null
