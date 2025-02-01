@@ -11,8 +11,9 @@ import PageLogoHeading from '@/atoms/PageLogoHeading';
 import { normalize } from '@/utils/normalize';
 import FileUploadButton from '@/atoms/FileUploadButton';
 import PrimaryButton from '@/atoms/PrimaryButton';
-import { geminiRequest } from '@/services/gemini';
+import { geminiRequest, getFileHash } from '@/services/gemini';
 import DashedLine from '@/atoms/DashedLine';
+import SecondaryButton from '@/atoms/SecondaryButton';
 
 const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState<any | null>(null);
@@ -41,11 +42,20 @@ const UploadPage = () => {
       encoding: FileSystem.EncodingType.Base64,
     });
 
+    const fileHash = await getFileHash(base64Content);
+    console.log({ fileHash });
+
     try {
       const geminiResponse = await geminiRequest(base64Content);
       if (geminiResponse) {
         const responseJson = JSON.parse(geminiResponse);
-        console.table(responseJson);
+        const payload = {
+          filename: selectedFile.name,
+          mindmap: responseJson,
+          extension: selectedType,
+          fileHash: fileHash,
+        };
+        console.table({ payload });
       }
     } catch (e) {
       console.log(e);
@@ -111,7 +121,7 @@ const UploadPage = () => {
 
       {!!selectedFile?.name && (
         <View>
-          <PrimaryButton onPress={() => {}} text="Genera Mappa" />
+          <PrimaryButton onPress={processDocument} text="Genera Mappa" />
         </View>
       )}
     </View>

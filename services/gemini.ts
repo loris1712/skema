@@ -1,5 +1,7 @@
 import { GoogleGenerativeAI, Schema, SchemaType } from '@google/generative-ai';
 import { MINDMAP_AI_PROMPT } from '@/constants/Prompts';
+import * as Crypto from 'expo-crypto';
+
 
 const API_KEY = 'AIzaSyC1YWP0X0cMClsJVSGosWzp-I_OBc8h6eM';
 const genAI = new GoogleGenerativeAI(API_KEY);
@@ -37,6 +39,16 @@ const model = genAI.getGenerativeModel({
   },
 });
 
+
+export const getFileHash = async (fileData: any) => {
+  const digest = await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    fileData,
+  );
+
+  return digest;
+}
+
 export const geminiRequest = async (fileBuffer: any) => {
   console.log('FILE RECEIVED - Submitting');
   try {
@@ -51,6 +63,7 @@ export const geminiRequest = async (fileBuffer: any) => {
     ]);
     return result.response.text();
   } catch (e) {
+    console.log("GEMINI ERROR", {e})
     return null
   }
 };
