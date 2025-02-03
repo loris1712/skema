@@ -14,38 +14,22 @@ import PrimaryButton from '@/atoms/PrimaryButton';
 import { geminiRequest, getFileHash } from '@/services/gemini';
 import DashedLine from '@/atoms/DashedLine';
 import SecondaryButton from '@/atoms/SecondaryButton';
+import { useMutation } from '@tanstack/react-query';
 
 const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState<any | null>(null);
-  const [selectedType, setSelectedType] = useState<'pdf' | 'word' | 'audio' | null>(null)
+  const [selectedType, setSelectedType] = useState<'pdf' | 'word' | 'audio' | null>(null);
+  const [errorType, setErrorType] = useState<'pick' | 'mindmap' | null>()
 
-  const pickDocument = async (type: string) => {
-    try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type,
-        copyToCacheDirectory: true,
+  const generateMindMapMutation = useMutation({
+    mutationKey: ['generateMindMap'],
+    mutationFn: async (file: any) => {
+
+      const base64Content = await FileSystem.readAsStringAsync(file.uri, {
+        encoding: FileSystem.EncodingType.Base64,
       });
-      if (result.assets && result.assets.length > 0) {
-        setSelectedFile(result.assets?.[0]);
-      }
-      console.log(result);
-    } catch (err) {
-      console.error('Error picking document:', err);
-    }
-  };
+      const fileHash = await getFileHash(base64Content);
 
-  const processDocument = async () => {
-    console.log('Selected file:', selectedFile.name);
-
-    // Read file content as base64
-    const base64Content = await FileSystem.readAsStringAsync(selectedFile.uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-
-    const fileHash = await getFileHash(base64Content);
-    console.log({ fileHash });
-
-    try {
       const geminiResponse = await geminiRequest(base64Content);
       if (geminiResponse) {
         const responseJson = JSON.parse(geminiResponse);
@@ -55,12 +39,31 @@ const UploadPage = () => {
           extension: selectedType,
           fileHash: fileHash,
         };
-        console.log({payload})
+
+        return payload;
       }
-    } catch (e) {
-      console.log(e);
+    },
+    onSuccess: async (payload: any) => {
+      console.log("Success response", {payload})
+    },
+  });
+
+  const pickDocument = async (type: string) => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type,
+        copyToCacheDirectory: true,
+      });
+      if (result.assets && result.assets.length > 0) {
+        setSelectedFile(result.assets?.[0]);
+      }else {
+        setErrorType('pick')
+      }
+    } catch (err) {
+      console.error('Error picking document:', err);
     }
   };
+
 
   const onCancel = () => {
     setSelectedFile(null);
@@ -121,7 +124,15 @@ const UploadPage = () => {
 
       {!!selectedFile?.name && (
         <View>
-          <PrimaryButton onPress={processDocument} text="Genera Mappa" />
+          <PrimaryButton
+            disabled={generateMindMapMutation.isPending}
+            onPress={() => {
+              generateMindMapMutation.mutate(selectedFile);
+            }}
+            text={
+              generateMindMapMutation.isPending ? 'Loading...' : 'Genera Mappa'
+            }
+          />
         </View>
       )}
     </View>

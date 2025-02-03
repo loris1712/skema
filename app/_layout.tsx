@@ -8,6 +8,7 @@ import 'react-native-reanimated';
 
 
 import { useColorScheme } from '@/components/useColorScheme';
+import AppClientQuery from '@/components/AppQueryClient';
 
 export {
   ErrorBoundary,
@@ -51,27 +52,29 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName='upload'>
-        <Stack.Screen
-          name={'index'}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name={'onboarding'}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name={'upload'}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack>
-    </ThemeProvider>
+    <AppClientQuery>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack initialRouteName="upload">
+          <Stack.Screen
+            name={'index'}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name={'onboarding'}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name={'upload'}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack>
+      </ThemeProvider>
+    </AppClientQuery>
   );
 }

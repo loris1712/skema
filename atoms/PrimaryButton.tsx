@@ -1,18 +1,18 @@
 import Colors from "@/constants/Colors";
 import { normalize } from "@/utils/normalize";
-import { TouchableHighlight, Text, TouchableNativeFeedback, TouchableOpacity } from "react-native"
+import { TouchableHighlight, Text, TouchableNativeFeedback, TouchableOpacity, TouchableOpacityProps } from "react-native"
 
 
-interface Props {
+interface Props extends TouchableOpacityProps{
     isWhite?: boolean,
     text: string,
-    onPress: () => void
 }
 
 
 const PrimaryButton = ({ text, onPress, isWhite }: Props) => {
   return (
     <TouchableOpacity
+  
     activeOpacity={0.8}
       onPress={onPress}
       style={{
