@@ -1,5 +1,5 @@
 import { normalize } from "@/utils/normalize";
-import { Image,StyleSheet } from "react-native";
+import { Image } from "react-native";
 
 interface Props {
     size: number

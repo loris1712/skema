@@ -13,6 +13,13 @@ const UploadLayout = () => {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name={'completed'}
+            options={{
+              headerTitle: 'Completed',
+              headerShown: false,
+            }}
+          />
         </Stack>
       </AppClientQuery>
     );

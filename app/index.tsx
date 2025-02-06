@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View, Image} from "react-native"
-import {Link, Stack, useRouter} from "expo-router"
+import { useRouter} from "expo-router"
 import Colors from "@/constants/Colors"
 import { normalize } from "@/utils/normalize";
 import AppIcon from "@/atoms/AppIcon";

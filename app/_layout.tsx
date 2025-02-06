@@ -73,6 +73,12 @@ function RootLayoutNav() {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name={'mindmap'}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack>
       </ThemeProvider>
     </AppClientQuery>

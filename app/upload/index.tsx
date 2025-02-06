@@ -13,18 +13,20 @@ import FileUploadButton from '@/atoms/FileUploadButton';
 import PrimaryButton from '@/atoms/PrimaryButton';
 import { geminiRequest, getFileHash } from '@/services/gemini';
 import DashedLine from '@/atoms/DashedLine';
-import SecondaryButton from '@/atoms/SecondaryButton';
 import { useMutation } from '@tanstack/react-query';
 
 const UploadPage = () => {
+  const router = useRouter();
+
   const [selectedFile, setSelectedFile] = useState<any | null>(null);
-  const [selectedType, setSelectedType] = useState<'pdf' | 'word' | 'audio' | null>(null);
-  const [errorType, setErrorType] = useState<'pick' | 'mindmap' | null>()
+  const [selectedType, setSelectedType] = useState<
+    'pdf' | 'word' | 'audio' | null
+  >(null);
+  const [errorType, setErrorType] = useState<'pick' | 'mindmap' | null>();
 
   const generateMindMapMutation = useMutation({
     mutationKey: ['generateMindMap'],
     mutationFn: async (file: any) => {
-
       const base64Content = await FileSystem.readAsStringAsync(file.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
@@ -39,12 +41,14 @@ const UploadPage = () => {
           extension: selectedType,
           fileHash: fileHash,
         };
-
+        // api to upload to servier
+        router.push(`/upload/completed?file=${fileHash}`);
         return payload;
       }
     },
     onSuccess: async (payload: any) => {
-      console.log("Success response", {payload})
+      const resp = JSON.stringify(payload);
+      console.log('Success response', resp);
     },
   });
 
@@ -56,19 +60,18 @@ const UploadPage = () => {
       });
       if (result.assets && result.assets.length > 0) {
         setSelectedFile(result.assets?.[0]);
-      }else {
-        setErrorType('pick')
+      } else {
+        setErrorType('pick');
       }
     } catch (err) {
       console.error('Error picking document:', err);
     }
   };
 
-
   const onCancel = () => {
     setSelectedFile(null);
-    setSelectedType(null)
-  }
+    setSelectedType(null);
+  };
 
   return (
     <View style={{ ...shared.pageContainer }}>
@@ -143,10 +146,10 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: normalize(120),
     justifyContent: 'center',
-    marginVertical: normalize(16)
+    marginVertical: normalize(16),
   },
   uploadButtonsWrapper: {
-    flex:1
+    flex: 1,
   },
 });
 
