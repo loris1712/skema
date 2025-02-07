@@ -50,7 +50,6 @@ const UploadPage = () => {
         };
         // api to upload to server
         const { data, error } = await saveFileMindMap(payload);
-        console.log({ error });
         if (error) {
           throw new Error(error.message);
         }
