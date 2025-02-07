@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
+import { useMutation } from '@tanstack/react-query';
 import * as FileSystem from 'expo-file-system';
-import { Buffer } from 'buffer';
 import { useRouter } from 'expo-router';
 
 import { View } from '@/components/Themed';
@@ -13,7 +13,7 @@ import FileUploadButton from '@/atoms/FileUploadButton';
 import PrimaryButton from '@/atoms/PrimaryButton';
 import { geminiRequest, getFileHash } from '@/services/gemini';
 import DashedLine from '@/atoms/DashedLine';
-import { useMutation } from '@tanstack/react-query';
+import { saveFileMindMap, getFileMindMap } from '@/services/supabase';
 
 const UploadPage = () => {
   const router = useRouter();
@@ -32,23 +32,37 @@ const UploadPage = () => {
       });
       const fileHash = await getFileHash(base64Content);
 
+      const existingMindMap = await getFileMindMap(fileHash);
+      const mindMap = existingMindMap?.[0] ?? null;
+
+      if (mindMap) return mindMap;
+
       const geminiResponse = await geminiRequest(base64Content);
       if (geminiResponse) {
         const responseJson = JSON.parse(geminiResponse);
         const payload = {
-          filename: selectedFile.name,
-          mindmap: responseJson,
+          id: fileHash,
+          name: selectedFile.name,
+          mindMap: responseJson,
           extension: selectedType,
+          type: selectedType,
           fileHash: fileHash,
         };
-        // api to upload to servier
-        router.push(`/upload/completed?file=${fileHash}`);
-        return payload;
+        // api to upload to server
+        const { data, error } = await saveFileMindMap(payload);
+        console.log({ error });
+        if (error) {
+          throw new Error(error.message);
+        }
+        return data;
       }
     },
     onSuccess: async (payload: any) => {
-      const resp = JSON.stringify(payload);
-      console.log('Success response', resp);
+      console.log("Response",{payload})
+      router.push(`/upload/completed?file=${payload.fileHash}`);
+    },
+    onError: () => {
+      setErrorType('mindmap');
     },
   });
 
