@@ -37,7 +37,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync().then(console.log);
-      router.push('/upload')
+      router.push('/auth/login')
     }
   }, [loaded]);
 
@@ -60,6 +60,12 @@ function RootLayoutNav() {
             options={{
               headerShown: false,
             }}
+          />
+          <Stack.Screen
+              name={'auth'}
+              options={{
+                headerShown: false,
+              }}
           />
           <Stack.Screen
             name={'onboarding'}

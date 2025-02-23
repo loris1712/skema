@@ -9,15 +9,17 @@ import { router } from 'expo-router';
 interface Props {
   title?: string;
   asHeader?: boolean;
+  size?: number
 }
 
-const PageLogoHeading = ({ title, asHeader }: Props) => {
+const PageLogoHeading = ({ title, asHeader,size }: Props) => {
   const hasTitle = !!title;
   return (
     <View
       style={{
         ...(styles.container as object),
         justifyContent: hasTitle ? 'flex-start' : 'center',
+        marginLeft: !asHeader ? normalize(8) : 0
       }}
     >
       {asHeader && (
@@ -37,7 +39,7 @@ const PageLogoHeading = ({ title, asHeader }: Props) => {
           />
         </TouchableOpacity>
       )}
-      <AppIcon size={asHeader ? 42 : 62} />
+      <AppIcon size={size ??  asHeader ? 42 : 62} />
       {title && <Text style={styles.text}>{title}</Text>}
     </View>
   );
