@@ -5,7 +5,13 @@ const AuthLayout = () => {
 
     return (
         <AppClientQuery>
-            <Stack initialRouteName={"login"}>
+            <Stack initialRouteName={"index"}>
+                <Stack.Screen
+                    name={'index'}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
                 <Stack.Screen
                     name={'login'}
                     options={{

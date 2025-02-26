@@ -14,7 +14,7 @@ const RegisterPage = () => {
             <View style={{
                 marginVertical:normalize(16)
             }}>
-                <PageLogoHeading size={18} title={"File caricato"}/>
+                <PageLogoHeading asHeader size={18} title={"File caricato"}/>
             </View>
             <DashLine/>
             <View style={{

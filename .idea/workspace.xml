@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/auth/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/atoms/TextInput.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/login.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/register.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/onboarding.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/onboarding.tsx" afterDir="false" />
@@ -113,7 +113,7 @@
       <workItem from="1737982555059" duration="8020000" />
       <workItem from="1740303138372" duration="4535000" />
       <workItem from="1740392139504" duration="3749000" />
-      <workItem from="1740548254175" duration="1554000" />
+      <workItem from="1740548254175" duration="2319000" />
     </task>
     <servers />
   </component>
