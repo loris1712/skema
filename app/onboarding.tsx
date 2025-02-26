@@ -15,7 +15,7 @@ const OnboardingPage = () => {
     return (
         <View style={{...shared.pageContainer}}>
             <FeatureSwiper onComplete={()=> {
-                router.push('/upload')
+                router.push('/auth/login')
             }}/>
         </View>
     )
