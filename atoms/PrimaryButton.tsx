@@ -6,10 +6,11 @@ import { TouchableHighlight, Text, TouchableNativeFeedback, TouchableOpacity, To
 interface Props extends TouchableOpacityProps{
     isWhite?: boolean,
     text: string,
+    isLoading?: boolean,
 }
 
 
-const PrimaryButton = ({ text, onPress, isWhite }: Props) => {
+const PrimaryButton = ({ text, onPress, isWhite, isLoading }: Props) => {
   return (
     <TouchableOpacity
   
@@ -31,7 +32,7 @@ const PrimaryButton = ({ text, onPress, isWhite }: Props) => {
           fontSize: normalize(16)
         }}
       >
-        {text}
+        {isLoading ? "Loading..." : text}
       </Text>
     </TouchableOpacity>
   );

@@ -86,7 +86,9 @@ const RegisterPage = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.buttonContainer}>
-                                <PrimaryButton disabled={createAccountMutation.isPending} text={"Crea account"}
+                                <PrimaryButton
+                                    isLoading={createAccountMutation.isPending}
+                                    disabled={createAccountMutation.isPending} text={"Crea account"}
                                                onPress={(e) => {
                                                    handleSubmit(e as any)
                                                }}/>
