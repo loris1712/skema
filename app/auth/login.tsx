@@ -1,28 +1,21 @@
 import {StyleSheet} from 'react-native';
-import {  signInAnonymously } from "firebase/auth";
-import {auth} from "@/firebaseConfig";
+
 import {Text, View} from "@/components/Themed";
 import shared from "@/styles/shared";
-import {useEffect} from "react";
 import PrimaryButton from "@/atoms/PrimaryButton";
 import PageLogoHeading from "@/atoms/PageLogoHeading";
 import Input from "@/atoms/TextInput"
 import {normalize} from "@/utils/normalize";
 import DashLine from "@/atoms/DashedLine";
+import {Formik} from "formik";
 
 
 const LoginPage = () => {
 
-    useEffect(() => {
-        signInAnonymously(auth).then(user => {
-            console.log(user);
-        }).catch(console.error);
-    }, []);
-
     return (
         <View style={shared.pageContainer}>
             <View style={{
-                marginVertical:normalize(16)
+                marginVertical: normalize(16)
             }}>
                 <PageLogoHeading asHeader size={18} title={"File caricato"}/>
             </View>
@@ -35,16 +28,35 @@ const LoginPage = () => {
                     <Text style={styles.title}>Login</Text>
                     <Text style={styles.description}>Accedi al tuo account per visualizzare le proprie tue mappe.</Text>
                 </View>
-                <View style={styles.inputContainer}>
-                    <Input placeholder="Email" keyboardType="email-address" autoCapitalize="none" />
-                    <View style={styles.inputSpacer} />
-                    <Input placeholder="Password" secureTextEntry />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton text={"Login"} onPress={()=> {
-
-                    }}/>
-                </View>
+                <Formik initialValues={{
+                    email: "",
+                    password: "",
+                }} onSubmit={(values) => {
+                    console.log({values});
+                }}>
+                    {({handleChange, handleBlur, values, handleSubmit}) => (
+                        <>
+                            <View style={styles.inputContainer}>
+                                <Input
+                                    onChangeText={handleChange('email')}
+                                    onBlur={handleBlur('email')}
+                                    value={values.email}
+                                    placeholder="Email"
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"/>
+                                <View style={styles.inputSpacer}/>
+                                <Input onChangeText={handleChange('password')}
+                                       onBlur={handleBlur('password')}
+                                       value={values.password}
+                                       placeholder="Password"
+                                       secureTextEntry/>
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <PrimaryButton text={"Login"} onPress={(e: any) => handleSubmit(e)}/>
+                            </View>
+                        </>
+                    )}
+                </Formik>
             </View>
         </View>
     )
@@ -78,7 +90,7 @@ const styles = StyleSheet.create({
         height: 16,
     },
     buttonContainer: {
-        marginTop: normalize(16),
+        marginVertical: normalize(16),
     },
 })
 
