@@ -101,7 +101,7 @@ const UploadPage = () => {
         <TouchableOpacity
           onPress={() => {
             setSelectedType('pdf');
-            pickDocument('application/pdf');
+            pickDocument('application/pdf').then().catch();
           }}
         >
           <FileUploadButton
@@ -115,7 +115,7 @@ const UploadPage = () => {
         <TouchableOpacity
           onPress={() => {
             setSelectedType('word');
-            pickDocument('application/msword');
+            pickDocument('application/msword').then().catch();
           }}
         >
           <FileUploadButton
@@ -129,7 +129,7 @@ const UploadPage = () => {
         <TouchableOpacity
           onPress={() => {
             setSelectedType('audio');
-            pickDocument('/mp3');
+            pickDocument('/mp3').then().catch();
           }}
         >
           <FileUploadButton

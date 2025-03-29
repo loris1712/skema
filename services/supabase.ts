@@ -15,7 +15,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 });
 
 export const saveFileMindMap = async (payload: any) => {
-  return await supabase.from('FileRequest').upsert(payload);
+  return supabase.from('FileRequest').upsert(payload);
 };
 
 export const getFileMindMap = async (fileHash: string) => {
