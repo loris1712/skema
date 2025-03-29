@@ -10,6 +10,7 @@ const AuthLayout = () => {
                     name={'index'}
                     options={{
                         headerShown: false,
+                        presentation: 'modal'
                     }}
                 />
                 <Stack.Screen
@@ -22,6 +23,7 @@ const AuthLayout = () => {
                     name={'register'}
                     options={{
                         headerShown: false,
+                        presentation: 'modal'
                     }}
                 />
             </Stack>

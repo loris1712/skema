@@ -16,6 +16,7 @@ import Input from "@/atoms/TextInput"
 import {normalize} from "@/utils/normalize";
 import DashLine from "@/atoms/DashedLine";
 import {FirebaseError} from "@firebase/util";
+import Colors from "@/constants/Colors";
 
 
 const LoginPage = () => {
@@ -48,6 +49,7 @@ const LoginPage = () => {
             <View style={{
                 marginTop: normalize(24),
                 flex: 1,
+                overflow:'scroll'
             }}>
                 <View style={styles.content}>
                     <Text style={styles.title}>Login</Text>
@@ -92,6 +94,12 @@ const LoginPage = () => {
                         </>
                     )}
                 </Formik>
+                <View style={styles.registerWrapper}>
+                    <Text style={styles.registerDescription}>Don't have an account?</Text>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=> router.replace('/auth/register')}>
+                        <Text style={styles.registerText}>Register</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
@@ -127,6 +135,20 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginVertical: normalize(16),
     },
+    registerWrapper: {
+        height: normalize(50),
+        flexDirection:'row',
+        justifyContent: "center",
+        alignItems: "center",
+        gap:normalize(8)
+    },
+    registerDescription: {
+        color: '#fff',
+    },
+    registerText: {
+        color: "#0066FF",
+        textDecorationLine:'underline'
+    }
 })
 
 export default LoginPage;

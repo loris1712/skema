@@ -4,7 +4,6 @@ import * as DocumentPicker from 'expo-document-picker';
 import { useMutation } from '@tanstack/react-query';
 import * as FileSystem from 'expo-file-system';
 import { useRouter } from 'expo-router';
-
 import { View } from '@/components/Themed';
 import shared from '@/styles/shared';
 import PageLogoHeading from '@/atoms/PageLogoHeading';
@@ -14,9 +13,14 @@ import PrimaryButton from '@/atoms/PrimaryButton';
 import { geminiRequest, getFileHash } from '@/services/gemini';
 import DashedLine from '@/atoms/DashedLine';
 import { saveFileMindMap, getFileMindMap } from '@/services/supabase';
+import {auth} from "@/firebaseConfig";
+
 
 const UploadPage = () => {
   const router = useRouter();
+
+  const currentUser = auth.currentUser;
+
 
   const [selectedFile, setSelectedFile] = useState<any | null>(null);
   const [selectedType, setSelectedType] = useState<
@@ -143,7 +147,12 @@ const UploadPage = () => {
           <PrimaryButton
             disabled={generateMindMapMutation.isPending}
             onPress={() => {
-              generateMindMapMutation.mutate(selectedFile);
+              if(!currentUser){
+                router.push("/auth/login");
+              }else {
+                generateMindMapMutation.mutate(selectedFile);
+              }
+
             }}
             text={
               generateMindMapMutation.isPending ? 'Loading...' : 'Genera Mappa'

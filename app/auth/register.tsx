@@ -96,6 +96,12 @@ const RegisterPage = () => {
                         </>
                     )}
                 </Formik>
+                <View style={styles.registerWrapper}>
+                    <Text style={styles.registerDescription}>Don't have an account?</Text>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=> router.replace('/auth/login')}>
+                        <Text style={styles.registerText}>Register</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
 
@@ -131,6 +137,20 @@ const styles = StyleSheet.create({
         marginBottom: normalize(16),
         marginTop: normalize(32)
     },
+    registerWrapper: {
+        height: normalize(50),
+        flexDirection:'row',
+        justifyContent: "center",
+        alignItems: "center",
+        gap:normalize(8)
+    },
+    registerDescription: {
+        color: '#fff',
+    },
+    registerText: {
+        color: "#0066FF",
+        textDecorationLine:'underline'
+    }
 })
 
 export default RegisterPage;
