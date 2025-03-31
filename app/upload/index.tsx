@@ -51,6 +51,7 @@ const UploadPage = () => {
           extension: selectedType,
           type: selectedType,
           fileHash: fileHash,
+          userId: currentUser?.uid
         };
         // api to upload to server
         const { data, error } = await saveFileMindMap(payload);
@@ -64,7 +65,8 @@ const UploadPage = () => {
       console.log("Response",{payload})
       router.push(`/upload/completed?file=${payload.fileHash}`);
     },
-    onError: () => {
+    onError: (error) => {
+      console.log({error});
       setErrorType('mindmap');
     },
   });
@@ -93,7 +95,7 @@ const UploadPage = () => {
   return (
     <View style={{ ...shared.pageContainer }}>
       <View style={styles.headerContainer}>
-        <PageLogoHeading title="Carica il tuo file" />
+        <PageLogoHeading asHeader title="Carica il tuo file" />
       </View>
 
       <View style={styles.uploadButtonsWrapper}>

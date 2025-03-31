@@ -80,6 +80,12 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
+              name={'list'}
+              options={{
+                headerShown: false,
+              }}
+          />
+          <Stack.Screen
             name={'mindmap'}
             options={{
               headerShown: false,

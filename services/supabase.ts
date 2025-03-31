@@ -18,6 +18,14 @@ export const saveFileMindMap = async (payload: any) => {
   return supabase.from('FileRequest').upsert(payload);
 };
 
+export const getUserMapList = async (userId: string) => {
+  const {data, error} = await supabase.from('FileRequest').select("*").eq('userId', userId);
+  if(error){
+    return null;
+  }
+  return data
+}
+
 export const getFileMindMap = async (fileHash: string) => {
   const { error, data } = await supabase
     .from('FileRequest')

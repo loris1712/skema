@@ -16,18 +16,21 @@ import Input from "@/atoms/TextInput"
 import {normalize} from "@/utils/normalize";
 import DashLine from "@/atoms/DashedLine";
 import {FirebaseError} from "@firebase/util";
-import Colors from "@/constants/Colors";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 
 
 const LoginPage = () => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const router = useRouter();
+    const {setItem} = useAsyncStorage('user-id')
 
     const signInMutation = useMutation({
         mutationKey: ['login'],
         mutationFn: async ({email, password}: any) => {
             const result = await signInWithEmailAndPassword(auth, email, password);
+            await setItem(result.user.uid, () => {
+            })
             return result.user;
         },
         onSuccess: () => {

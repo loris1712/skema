@@ -5,8 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/list/_layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/list/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useAsyncStorage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/+html.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/+html.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mindmap/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/mindmap/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/onboarding.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/onboarding.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/upload/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/upload/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebaseConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/firebaseConfig.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/supabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/supabase.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +121,8 @@
       <workItem from="1740392139504" duration="3749000" />
       <workItem from="1740548254175" duration="2622000" />
       <workItem from="1740848998468" duration="3522000" />
-      <workItem from="1743253518160" duration="2983000" />
+      <workItem from="1743253518160" duration="3156000" />
+      <workItem from="1743417074443" duration="5528000" />
     </task>
     <servers />
   </component>

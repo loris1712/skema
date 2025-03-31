@@ -10,7 +10,6 @@ import sharedStyles from '@/styles/shared';
 
 const MindMapPage = () => {
     const { file } = useLocalSearchParams();
-    console.log({ file });
   return (
     <View style={{ ...sharedStyles.pageContainer }}>
       <View style={styles.headerContainer}>
