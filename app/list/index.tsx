@@ -10,6 +10,7 @@ import {getUserMapList} from "@/services/supabase";
 import PrimaryButton from "@/atoms/PrimaryButton";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import DashedLine from "@/atoms/DashedLine";
+import dayjs from 'dayjs'
 
 
 const MyList = () => {
@@ -25,39 +26,54 @@ const MyList = () => {
             console.log({userId})
             return await getUserMapList(userId ?? "");
         },
-        refetchOnMount: true
+        refetchOnMount: true,
+        refetchOnWindowFocus: true
     });
+    console.log({list})
 
     return (
         <View style={{...shared.pageContainer}}>
             <View style={styles.headerContainer}>
-                <PageLogoHeading title="My List"/>
+                <PageLogoHeading title="I miei caricamenti"/>
             </View>
-            <DashedLine />
-            <View style={{flex: 1, gap: normalize(16)}}>
+
+            <View style={{flex: 1, gap: normalize(16), marginTop: normalize(16)}}>
                 {
                     isLoading && <ActivityIndicator size="large"/>
                 }
+                <DashedLine/>
                 <FlatList
                     contentContainerStyle={{
-                        height:'100%',
+                        height: '100%',
                     }}
                     data={list}
                     keyExtractor={(it: any) => it.id}
+                    ItemSeparatorComponent={() => <DashedLine/>}
                     renderItem={({item, index}: any) => {
                         return (
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => {
-                                router.push(`/mindmap?file=${item.fileHash}`);
-                            }} style={styles.fileListItemWrapper}>
-                                <Text style={styles.listName}>{index + 1} - </Text> <Text style={styles.listName}>{item.name}</Text>
-                            </TouchableOpacity>
+                            <>
+                                <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                    router.push(`/mindmap?file=${item.fileHash}`);
+                                }} style={styles.fileListItemWrapper}>
+                                    <Text numberOfLines={1} style={styles.listName}>{item.name}</Text>
+                                    <Text style={{
+                                        fontSize: normalize(12),
+                                        fontWeight: '500',
+                                        flex: 1,
+                                        color: '#fff'
+                                    }}>{dayjs(item?.createdAt).format("DD-MM-YYYY")}</Text>
+                                </TouchableOpacity>
+                                <DashedLine/>
+                            </>
+
                         )
                     }}/>
+
             </View>
             <View style={{
                 paddingHorizontal: normalize(8)
             }}>
-                <PrimaryButton text={"New Upload"} onPress={() => {
+                <PrimaryButton text={"Scarica"} onPress={() => {
                     router.push('/upload')
                 }}/>
             </View>
@@ -75,14 +91,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     fileListItemWrapper: {
-        paddingVertical: normalize(16),
         flexDirection: 'row',
         gap: normalize(8),
+        height: normalize(74),
+        alignItems: 'center'
     },
     listName: {
         color: 'white',
-        fontSize: normalize(24),
+        fontSize: normalize(20),
         fontWeight: 'bold',
+        flex: 1,
     }
 });
 

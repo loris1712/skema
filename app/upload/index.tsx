@@ -42,6 +42,7 @@ const UploadPage = () => {
       if (mindMap) return mindMap;
 
       const geminiResponse = await geminiRequest(base64Content);
+      console.log({geminiResponse})
       if (geminiResponse) {
         const responseJson = JSON.parse(geminiResponse);
         const payload = {
@@ -51,7 +52,8 @@ const UploadPage = () => {
           extension: selectedType,
           type: selectedType,
           fileHash: fileHash,
-          userId: currentUser?.uid
+          userId: currentUser?.uid,
+          createdAt: new Date().toISOString()
         };
         // api to upload to server
         const { data, error } = await saveFileMindMap(payload);
