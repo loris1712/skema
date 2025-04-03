@@ -13,13 +13,14 @@ import PrimaryButton from '@/atoms/PrimaryButton';
 import { geminiRequest, getFileHash } from '@/services/gemini';
 import DashedLine from '@/atoms/DashedLine';
 import { saveFileMindMap, getFileMindMap } from '@/services/supabase';
-import {auth} from "@/firebaseConfig";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 
 
 const UploadPage = () => {
   const router = useRouter();
 
-  const currentUser = auth.currentUser;
+  const {getItem} = useAsyncStorage('user-id');
+
 
 
   const [selectedFile, setSelectedFile] = useState<any | null>(null);
@@ -31,6 +32,8 @@ const UploadPage = () => {
   const generateMindMapMutation = useMutation({
     mutationKey: ['generateMindMap'],
     mutationFn: async (file: any) => {
+      const userId = await getItem();
+
       const base64Content = await FileSystem.readAsStringAsync(file.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
@@ -43,7 +46,7 @@ const UploadPage = () => {
 
       const geminiResponse = await geminiRequest(base64Content);
       console.log({geminiResponse})
-      if (geminiResponse) {
+      if (geminiResponse && fileHash) {
         const responseJson = JSON.parse(geminiResponse);
         const payload = {
           id: fileHash,
@@ -52,7 +55,7 @@ const UploadPage = () => {
           extension: selectedType,
           type: selectedType,
           fileHash: fileHash,
-          userId: currentUser?.uid,
+          userId: userId,
           createdAt: new Date().toISOString()
         };
         // api to upload to server
@@ -133,7 +136,7 @@ const UploadPage = () => {
         <TouchableOpacity
           onPress={() => {
             setSelectedType('audio');
-            pickDocument('/mp3').then().catch();
+            pickDocument('audio/mpeg').then().catch();
           }}
         >
           <FileUploadButton
@@ -150,8 +153,9 @@ const UploadPage = () => {
         <View>
           <PrimaryButton
             disabled={generateMindMapMutation.isPending}
-            onPress={() => {
-              if(!currentUser){
+            onPress={async () => {
+              const userId = await getItem();
+              if(!userId){
                 router.push("/auth/login");
               }else {
                 generateMindMapMutation.mutate(selectedFile);

@@ -3,7 +3,7 @@ import {useRouter} from "expo-router";
 import shared from "@/styles/shared";
 import {View} from "@/components/Themed";
 import PageLogoHeading from "@/atoms/PageLogoHeading";
-import React from "react";
+import React, {useEffect} from "react";
 import {ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity} from "react-native";
 import {normalize} from "@/utils/normalize";
 import {getUserMapList} from "@/services/supabase";
@@ -19,17 +19,20 @@ const MyList = () => {
     const {getItem} = useAsyncStorage('user-id');
 
 
-    const {data: list, isLoading} = useQuery({
+    const {data: list, isLoading, isFetching, refetch} = useQuery({
         queryKey: [`userList`],
         queryFn: async () => {
             const userId = await getItem();
-            console.log({userId})
             return await getUserMapList(userId ?? "");
         },
         refetchOnMount: true,
-        refetchOnWindowFocus: true
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
     });
-    console.log({list})
+
+    useEffect(() => {
+        refetch().then().catch()
+    }, []);
 
     return (
         <View style={{...shared.pageContainer}}>
@@ -38,18 +41,17 @@ const MyList = () => {
             </View>
 
             <View style={{flex: 1, gap: normalize(16), marginTop: normalize(16)}}>
-                {
-                    isLoading && <ActivityIndicator size="large"/>
-                }
                 <DashedLine/>
                 <FlatList
                     contentContainerStyle={{
                         height: '100%',
                     }}
+                    refreshing={isFetching || isLoading}
+                    onRefresh={()=> refetch()}
                     data={list}
                     keyExtractor={(it: any) => it.id}
                     ItemSeparatorComponent={() => <DashedLine/>}
-                    renderItem={({item, index}: any) => {
+                    renderItem={({item}: any) => {
                         return (
                             <>
                                 <TouchableOpacity activeOpacity={0.8} onPress={() => {

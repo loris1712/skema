@@ -13,7 +13,6 @@ import SecondaryButton from '@/atoms/SecondaryButton';
 const CompletedPage = () => {
   const router = useRouter();
   const { file } = useLocalSearchParams();
-  console.log({ file });
 
   return (
     <View style={{ ...shared.pageContainer }}>

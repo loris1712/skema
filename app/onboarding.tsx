@@ -4,6 +4,7 @@ import { StyleSheet, Image, Dimensions } from "react-native"
 import shared from '@/styles/shared';
 import FeatureSwiper from "@/components/FeatureSwiper";
 import {useRouter} from "expo-router";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window")
 
@@ -11,11 +12,14 @@ const { width } = Dimensions.get("window")
 const OnboardingPage = () => {
 
     const router = useRouter();
+    const onboardingAsync = useAsyncStorage('onboarding')
 
     return (
         <View style={{...shared.pageContainer}}>
             <FeatureSwiper onComplete={()=> {
-                router.push('/list')
+                onboardingAsync.setItem('completed', ()=> {
+                    router.push('/list')
+                }).then().catch()
             }}/>
         </View>
     )
