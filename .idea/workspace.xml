@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/eas.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/list/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/onboarding.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/onboarding.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/upload/completed.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/upload/completed.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/upload/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/upload/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firebaseConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/firebaseConfig.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "thearchibold"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:loris1712/skema.git",
+    "accountId": "3992aba5-a519-4ea6-949e-228c2690b418"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -119,7 +126,8 @@
       <workItem from="1740848998468" duration="3522000" />
       <workItem from="1743253518160" duration="3156000" />
       <workItem from="1743417074443" duration="5751000" />
-      <workItem from="1743667795618" duration="5969000" />
+      <workItem from="1743667795618" duration="6111000" />
+      <workItem from="1744186145613" duration="1166000" />
     </task>
     <servers />
   </component>
