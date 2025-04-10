@@ -5,6 +5,7 @@ import {Stack, useRouter} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
 import 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 import {useColorScheme} from '@/components/useColorScheme';
@@ -55,7 +56,7 @@ export default function RootLayout() {
         return null;
     }
 
-    return <RootLayoutNav/>;
+    return <SafeAreaView style={{ flex: 1 }}><RootLayoutNav/></SafeAreaView>;
 }
 
 function RootLayoutNav() {

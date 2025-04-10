@@ -1,10 +1,12 @@
 import AppClientQuery from "@/components/AppQueryClient";
 import {Stack} from "expo-router";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 const AuthLayout = () => {
 
     return (
         <AppClientQuery>
+            <SafeAreaView style={{ flex: 1 }}>
             <Stack initialRouteName={"index"}>
                 <Stack.Screen
                     name={'index'}
@@ -27,6 +29,7 @@ const AuthLayout = () => {
                     }}
                 />
             </Stack>
+            </SafeAreaView>
         </AppClientQuery>
     );
 
