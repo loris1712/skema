@@ -36,10 +36,7 @@ const MyList = () => {
 
     return (
         <View style={{...shared.pageContainer}}>
-            <View style={styles.headerContainer}>
-                <PageLogoHeading title="I miei caricamenti"/>
-            </View>
-
+            <PageLogoHeading title="I miei caricamenti"/>
             <View style={{flex: 1, gap: normalize(16), marginTop: normalize(16)}}>
                 <DashedLine/>
                 <FlatList

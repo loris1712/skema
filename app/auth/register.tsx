@@ -24,7 +24,7 @@ const RegisterPage = () => {
         mutationFn: async (payload: any) => {
             const userCredentials = await createUserWithEmailAndPassword(auth, payload.email, payload.password);
             if (userCredentials.user) {
-                updateProfile(userCredentials.user, {
+                await updateProfile(userCredentials.user, {
                     displayName: payload.username
                 });
             }
@@ -41,11 +41,7 @@ const RegisterPage = () => {
 
     return (
         <View style={shared.pageContainer}>
-            <View style={{
-                marginVertical: normalize(16)
-            }}>
-                <PageLogoHeading asHeader size={18} title={"File caricato"}/>
-            </View>
+            <PageLogoHeading asHeader size={18} title={"File caricato"}/>
             <DashLine/>
             <View style={{
                 marginTop: normalize(24),

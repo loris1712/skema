@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import {useLocalSearchParams} from 'expo-router'
 
@@ -12,9 +11,7 @@ const MindMapPage = () => {
     const { file } = useLocalSearchParams();
   return (
     <View style={{ ...sharedStyles.pageContainer }}>
-      <View style={styles.headerContainer}>
-        <PageLogoHeading asHeader title="Carica il tuo file" />
-      </View>
+        <PageLogoHeading asHeader title="Carica il tuo file" />Ï
       <WebView
         source={{ uri: `https://skema-mindmap.vercel.app?file=${file}` }}
       />
@@ -22,15 +19,6 @@ const MindMapPage = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    justifyContent: 'center',
-    marginVertical: normalize(16),
-  },
-  uploadButtonsWrapper: {
-    flex: 1,
-  },
-});
 
 
 export default MindMapPage;

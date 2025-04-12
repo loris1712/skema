@@ -12,11 +12,7 @@ const AuthIndex = () => {
 
     return (
         <View style={shared.pageContainer}>
-            <View style={{
-                marginVertical:normalize(16)
-            }}>
-                <PageLogoHeading size={18} title={"File caricato"}/>
-            </View>
+            <PageLogoHeading size={18} title={"File caricato"}/>
             <DashLine/>
             <View style={{
                 marginTop: normalize(24),

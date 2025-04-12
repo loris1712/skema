@@ -16,9 +16,7 @@ const CompletedPage = () => {
 
   return (
     <View style={{ ...shared.pageContainer }}>
-      <View style={styles.headerContainer}>
-        <PageLogoHeading title="Carica il tuo file" />
-      </View>
+      <PageLogoHeading title="Carica il tuo file" />
       <DashedLine />
       <View style={styles.uploadButtonsWrapper}></View>
 

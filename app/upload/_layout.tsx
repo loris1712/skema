@@ -1,12 +1,14 @@
 import AppClientQuery from "@/components/AppQueryClient";
 import {Stack} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
+import {StatusBar} from "react-native";
 
 const UploadLayout = () => {
 
     return (
         <AppClientQuery>
             <SafeAreaView style={{flex: 1}}>
+                <StatusBar barStyle="light-content" />
                 <Stack>
                     <Stack.Screen
                         name={'index'}

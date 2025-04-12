@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: normalize(16),
     alignItems: 'center',
+    paddingVertical: normalize(8),
   },
   hasText: {},
   text: {

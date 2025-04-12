@@ -99,10 +99,7 @@ const UploadPage = () => {
 
   return (
     <View style={{ ...shared.pageContainer }}>
-      <View style={styles.headerContainer}>
-        <PageLogoHeading asHeader title="Carica il tuo file" />
-      </View>
-
+      <PageLogoHeading asHeader title="Carica il tuo file" />
       <View style={styles.uploadButtonsWrapper}>
         <DashedLine />
         <TouchableOpacity
@@ -176,7 +173,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: normalize(120),
     justifyContent: 'center',
-    marginVertical: normalize(16),
   },
   uploadButtonsWrapper: {
     flex: 1,
