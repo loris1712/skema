@@ -1,10 +1,17 @@
-import { GoogleGenerativeAI, Schema, SchemaType } from '@google/generative-ai';
-import { MINDMAP_AI_PROMPT } from '@/constants/Prompts';
+import {GoogleGenerativeAI, SchemaType} from '@google/generative-ai';
+import {
+  GoogleGenAI,
+  createUserContent,
+  createPartFromUri,
+} from "@google/genai";
+import {MINDMAP_AI_PROMPT} from '@/constants/Prompts';
 import * as Crypto from 'expo-crypto';
 
 
 const API_KEY = 'AIzaSyC1YWP0X0cMClsJVSGosWzp-I_OBc8h6eM';
 const genAI = new GoogleGenerativeAI(API_KEY);
+const ai = new GoogleGenAI({ apiKey: API_KEY });
+
 
 const schema = {
   description: 'List of mind maps',
@@ -32,7 +39,7 @@ const schema = {
 };
 
 const model = genAI.getGenerativeModel({
-  model: 'gemini-1.5-flash',
+  model: 'gemini-2.0-flash',
   generationConfig: {
     responseMimeType: 'application/json',
     responseSchema: schema,
@@ -41,15 +48,13 @@ const model = genAI.getGenerativeModel({
 
 
 export const getFileHash = async (fileData: any) => {
-  const digest = await Crypto.digestStringAsync(
-    Crypto.CryptoDigestAlgorithm.SHA256,
-    fileData,
+  return await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      fileData,
   );
-
-  return digest;
 }
 
-export const geminiRequest = async (fileBuffer: any) => {
+export const geminiFileRequest = async (fileBuffer: any) => {
   console.log('FILE RECEIVED - Submitting');
   try {
     const result = await model.generateContent([
@@ -61,10 +66,35 @@ export const geminiRequest = async (fileBuffer: any) => {
       },
       `${MINDMAP_AI_PROMPT}`,
     ]);
-    const response = result.response.text();
-    return response;
+    return result.response.text();
   } catch (e) {
     console.log("GEMINI ERROR", {e})
     return null
   }
 };
+
+
+export const geminiAudioRequest = async (base64: any, type: string) => {
+  try{
+    //
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: [
+        {
+          parts: [
+            {
+              inlineData: {
+                data: base64,
+                mimeType: type || 'audio/wav', // Default to wav if not available
+              },
+            },
+            { text: "Transcribe this audio clip to text." },
+          ],
+        },
+      ],
+    });
+    return response.text;
+  }catch (e) {
+    console.log("GEMINI ERROR", {e})
+  }
+}

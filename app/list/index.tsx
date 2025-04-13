@@ -52,7 +52,7 @@ const MyList = () => {
                         return (
                             <>
                                 <TouchableOpacity activeOpacity={0.8} onPress={() => {
-                                    router.push(`/mindmap?file=${item.fileHash}`);
+                                    router.push(`/upload/completed?file=${item.fileHash}`);
                                 }} style={styles.fileListItemWrapper}>
                                     <Text numberOfLines={1} style={styles.listName}>{item.name}</Text>
                                     <Text style={{
