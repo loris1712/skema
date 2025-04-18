@@ -4,7 +4,7 @@ import shared from "@/styles/shared";
 import {View} from "@/components/Themed";
 import PageLogoHeading from "@/atoms/PageLogoHeading";
 import React, {useEffect} from "react";
-import {ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity} from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity} from "react-native";
 import {normalize} from "@/utils/normalize";
 import {getUserMapList} from "@/services/supabase";
 import PrimaryButton from "@/atoms/PrimaryButton";
