@@ -4,7 +4,6 @@ import {useLocalSearchParams} from 'expo-router'
 
 import { View } from '@/components/Themed';
 import PageLogoHeading from '@/atoms/PageLogoHeading';
-import { normalize } from '@/utils/normalize';
 import sharedStyles from '@/styles/shared';
 
 const MindMapPage = () => {

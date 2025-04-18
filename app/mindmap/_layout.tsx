@@ -8,7 +8,6 @@ const MindMapLayout = () => {
                 <Stack.Screen
                     name={'index'}
                     options={{
-                        headerTitle: 'Upload Documents',
                         headerShown: false,
                     }}
                 />

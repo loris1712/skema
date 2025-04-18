@@ -1,8 +1,6 @@
 import {GoogleGenerativeAI, SchemaType} from '@google/generative-ai';
 import {
   GoogleGenAI,
-  createUserContent,
-  createPartFromUri,
 } from "@google/genai";
 import {MINDMAP_AI_PROMPT} from '@/constants/Prompts';
 import * as Crypto from 'expo-crypto';
@@ -20,6 +18,9 @@ const schema = {
     type: SchemaType.OBJECT,
     properties: {
       id: {
+        type: SchemaType.STRING,
+      },
+      type: {
         type: SchemaType.STRING,
       },
       label: {

@@ -24,13 +24,13 @@ Nodes: Each node represents a key concept, section, or element from the document
 
 id: A unique identifier for the node.
 
-label: A concise title or description of the node (e.g., "Introduction", "Figure 1: Experimental Setup").
+label: A concise title of the node (e.g., "Introduction", "Figure 1: Experimental Setup").
 
 type: The type of content (e.g., "text", "image", "table", "equation").
 
-content: A summary or key details of the node (e.g., text summary, image description, table data).
+content: A summary or description or key details of the node (e.g., text summary, image description, table data).
 
-connections: Links to related nodes (e.g., "Introduction" connects to "Methodology").
+connections: Links to related nodes (e.g., "id - 1" connects to "id - 4").
 
 Hierarchy: The mindmap should reflect the document's structure, with parent nodes (e.g., "Results") and child nodes (e.g., "Figure 1", "Table 2").
 
@@ -74,15 +74,16 @@ Include captions for images, tables, and figures as part of the mindmap.
 
 Link references to their corresponding sections or data.
 
+After generating the sample output JSON Structure, test its validity by checking if its a valid json out. 
+If there are any errors with the json output structure, restructure it until it is correct.
+
 Sample output JSON Structure:
-{
-    "nodes": [
-        { "id": "1", "label": "Main Topic", "connections": ["2", "3"], "content": "Description for Main Topic " },
-        { "id": "2", "label": "Subtopic 1", "connections": ["4"],"content": "Description for Subtopic 1 " },
-        { "id": "3", "label": "Subtopic 2", "connections": [],"content": "Description for Subtopic 2" },
-        { "id": "4", "label": "Detail 1", "connections": [],"content": "Description for Details 1" }
-    ]
-}
+[
+        { "id": "1", "label": "Main Topic", "connections": ["2", "3"], "content": "Description for Main Topic ", "type": "image" },
+        { "id": "2", "label": "Subtopic 1", "connections": ["4"],"content": "Description for Subtopic 1 ", "type": "image" },
+        { "id": "3", "label": "Subtopic 2", "connections": ["4"],"content": "Description for Subtopic 2", "type": "image" },
+        { "id": "4", "label": "Detail 1", "connections": ["4"],"content": "Description for Details 1", "type": "image" }
+ ]
 `;
 
 export  {MINDMAP_AI_PROMPT}

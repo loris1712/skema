@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import {TouchableOpacity, StyleSheet, Alert, ActivityIndicator} from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { useMutation } from '@tanstack/react-query';
 import * as FileSystem from 'expo-file-system';
@@ -58,10 +58,11 @@ const UploadPage = () => {
       const existingMindMap = await getFileMindMap(fileHash);
       const mindMap = existingMindMap?.[0] ?? null;
 
-      if (mindMap) return mindMap;
+      if (mindMap) return fileHash;
 
       const geminiResponse = await geminiFileRequest(base64Content);
       if (geminiResponse && fileHash) {
+        console.log({ geminiResponse });
         const responseJson = JSON.parse(geminiResponse);
         const payload = {
           id: fileHash,
@@ -75,7 +76,9 @@ const UploadPage = () => {
         };
         // api to upload to server
         const { data, error } = await saveFileMindMap(payload);
+        console.log({data})
         if (error) {
+          console.log({error})
           throw new Error(error.message);
         }
         return fileHash;
@@ -152,6 +155,7 @@ const UploadPage = () => {
   const isLoading = generateMindMapMutation.isPending || transcribeAudioFileMutation.isPending;
 
   return (
+
     <View style={{ ...shared.pageContainer }}>
       <PageLogoHeading asHeader title="Carica il tuo file" />
       <View style={styles.uploadButtonsWrapper}>
@@ -199,6 +203,9 @@ const UploadPage = () => {
         </TouchableOpacity>
         <DashedLine />
       </View>
+      {
+          isLoading && (<ActivityIndicator size={"small"} color={"white"}/>)
+      }
 
       {!!selectedFile?.name && (
         <View>
