@@ -16,7 +16,6 @@ import { saveFileMindMap, getFileMindMap } from '@/services/supabase';
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {DocumentPickerAsset} from "expo-document-picker/src/types";
 
-
 const UploadPage = () => {
   const router = useRouter();
 

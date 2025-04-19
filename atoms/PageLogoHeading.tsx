@@ -19,7 +19,7 @@ const PageLogoHeading = ({ title, asHeader,size }: Props) => {
       style={{
         ...(styles.container as object),
         justifyContent: hasTitle ? 'flex-start' : 'center',
-        marginLeft: !asHeader ? normalize(8) : 0
+        marginLeft: !asHeader ? normalize(8) : 0,
       }}
     >
       {asHeader && (
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: normalize(16),
     alignItems: 'center',
-    paddingVertical: normalize(8),
+    paddingVertical: normalize(0),
   },
   hasText: {},
   text: {
