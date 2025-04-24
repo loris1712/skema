@@ -10,7 +10,7 @@ const MindMapPage = () => {
     const { file } = useLocalSearchParams();
   return (
     <View style={{ ...sharedStyles.pageContainer }}>
-        <PageLogoHeading asHeader title="Carica il tuo file" />Ï
+        <PageLogoHeading asHeader title="Carica il tuo file" />
       <WebView
         source={{ uri: `https://skema-mindmap.vercel.app?file=${file}` }}
       />
