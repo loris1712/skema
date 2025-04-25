@@ -37,7 +37,7 @@ const MyList = () => {
     return (
         <View style={{...shared.pageContainer}}>
             <PageLogoHeading title="I miei caricamenti"/>
-            <View style={{flex: 1, gap: normalize(16), marginTop: normalize(16)}}>
+            <View style={{flex: 1, gap: normalize(0), marginTop: normalize(10)}}>
                 <DashedLine/>
                 <FlatList
                     contentContainerStyle={{
@@ -72,7 +72,7 @@ const MyList = () => {
             <View style={{
                 paddingHorizontal: normalize(8)
             }}>
-                <PrimaryButton text={"Scarica"} onPress={() => {
+                <PrimaryButton text={"Carica"} onPress={() => {
                     router.push('/upload')
                 }}/>
             </View>

@@ -1,7 +1,7 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text} from 'react-native';
+import {ActivityIndicator, Alert, StyleSheet, Text, ScrollView} from 'react-native';
 import {useLocalSearchParams, useRouter} from 'expo-router';
-
+import * as Clipboard from 'expo-clipboard';
 import {View} from '@/components/Themed';
 import shared from '@/styles/shared';
 import PageLogoHeading from '@/atoms/PageLogoHeading';
@@ -31,20 +31,66 @@ const CompletedPage = () => {
 
     return (
         <View style={{...shared.pageContainer}}>
-            <PageLogoHeading asHeader title="Carica il tuo file"/>
+            <PageLogoHeading asHeader title="Completato"/>
             <DashedLine/>
             {
                 isLoading && <ActivityIndicator/>
             }
-            <View style={styles.uploadButtonsWrapper}>
-                {isAudio && <Text style={{
+
+        <View style={styles.containerText}>
+            <Text style={styles.title}>File pronto!</Text>
+            <Text style={styles.message}>
+                Il tuo file è pronto per essere visualizzato o scaricato.
+            </Text>
+        </View>
+
+        <View style={styles.uploadButtonsWrapper}>
+            {isAudio && (
+                <View>
+
+                <Text style={{
                     color: "#fff",
-                    fontSize: normalize(18)
-                }}>{data?.mindMap?.text}</Text>}
+                    marginBottom:normalize(10),
+                    fontSize: normalize(18),
+                    fontWeight: 600,
+                }} >Testo generato</Text>
+
+                <ScrollView style={{ maxHeight: 200 }} nestedScrollEnabled>
+                <Text style={{
+                    color: "#fff",
+                    fontSize: normalize(14)
+                }}>
+                    {data?.mindMap?.text}
+                </Text>
+                </ScrollView>
+
+                <Text style={{
+                    color: "#fff",
+                    textAlign:"center",
+                    marginTop:normalize(18),
+
+                    marginBottom:normalize(18),
+                    fontSize: normalize(14)
+                }} >Scorri verso il basso</Text>
+
+                </View>
+            )}
+
             </View>
 
             {!isLoading && (
                 <View style={styles.buttonWrapper}>
+
+                    {isAudio &&
+                        
+                        <PrimaryButton
+                        onPress={async () => {
+                            await Clipboard.setStringAsync(data?.mindMap?.text || '');
+                            Alert.alert('Copiato', 'Il testo è stato copiato negli appunti.');
+                        }}
+                        text="Copia negli appunti"
+                        />
+                    }
                     <PrimaryButton
                         isWhite
                         text="Cancella"
@@ -65,7 +111,7 @@ const CompletedPage = () => {
                             </View>
                             <View style={styles.gridButton}>
                                 <PrimaryButton
-                                    text="Sacrica"
+                                    text="Scarica"
                                     onPress={() => {
                                         router.push(`/mindmap?file=${file}`);
                                     }}
@@ -87,7 +133,6 @@ const styles = StyleSheet.create({
         marginVertical: normalize(16),
     },
     uploadButtonsWrapper: {
-        flex: 1,
     },
     buttonWrapper: {
         gap: normalize(16),
@@ -100,6 +145,25 @@ const styles = StyleSheet.create({
     gridButton: {
         flex: 1,
         paddingInline: normalize(-8),
+    },
+    containerText: {
+        flex: 1,
+        backgroundColor: '#000',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+    },
+    title: {
+        color: '#007AFF',
+        fontSize: normalize(28),
+        fontWeight: 'bold',
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    message: {
+        color: 'white',
+        fontSize: normalize(16),
+        textAlign: 'center',
     },
 });
 
