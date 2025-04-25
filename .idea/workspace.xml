@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mindmap/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/mindmap/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mindmap/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/mindmap/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/upload/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/upload/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/Prompts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Prompts.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/gemini.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/gemini.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +131,8 @@
       <workItem from="1744293320599" duration="3043000" />
       <workItem from="1744482169290" duration="1080000" />
       <workItem from="1744551181344" duration="7902000" />
-      <workItem from="1744969109746" duration="2440000" />
+      <workItem from="1744969109746" duration="5030000" />
+      <workItem from="1745071003498" duration="60000" />
     </task>
     <servers />
   </component>
