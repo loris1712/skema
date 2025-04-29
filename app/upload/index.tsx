@@ -224,7 +224,7 @@ const UploadPage = () => {
 
             }}
             text={
-              isLoading ? 'Loading...' : 'Genera Mappa'
+              isLoading ? 'Loading...' : 'Genera'
             }
           />
         </View>
