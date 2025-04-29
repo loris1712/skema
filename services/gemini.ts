@@ -77,7 +77,6 @@ export const geminiFileRequest = async (fileBuffer: any) => {
 
 export const geminiAudioRequest = async (base64: any, type: string) => {
   try{
-    console.log("Transcribe this audio clip to text. Remove unnecessary contingent words said by the professor in class; focus only on the lesson topics.")
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: [
