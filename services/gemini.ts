@@ -98,3 +98,46 @@ export const geminiAudioRequest = async (base64: any, type: string) => {
     console.log("GEMINI ERROR", {e})
   }
 }
+
+export const geminiAudioCleanUp = async (text: string, type: string) => {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: [
+        {
+          parts: [
+            { text },
+            { text: "Questa è una trascrizione letterale di un audio di una lezione fatta in classe, trasformalo in un testo con solo contenuto informativo, come se fosse un libro" },
+          ],
+        },
+      ],
+    });
+
+    return response.text;
+  } catch (e) {
+    console.log("GEMINI ERROR", { e });
+    throw e;
+  }
+};
+
+export const geminiAudioComparison = async (text: string, type: string) => {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: [
+        {
+          parts: [
+            { text },
+            { text: "Fai confronto ed integra aggiungendo al testo precedente informazioni con siti scientifici. Usa manuale MSD se il testo è di medicina, altrimenti usa altri siti scientifici. Elimina le tue parole di risposta." },
+          ],
+        },
+      ],
+    });
+
+    return response.text;
+  } catch (e) {
+    console.log("GEMINI ERROR", { e });
+    throw e;
+  }
+};
+

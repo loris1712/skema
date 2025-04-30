@@ -145,7 +145,6 @@ const UploadPage = () => {
     }
   })
 
-
   const onCancel = () => {
     setSelectedFile(null);
     setSelectedType(null);
