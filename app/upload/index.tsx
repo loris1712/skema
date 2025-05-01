@@ -112,7 +112,7 @@ const UploadPage = () => {
 
       const existingMindMap = await getFileMindMap(fileHash);
       const mindMap = existingMindMap?.[0] ?? null;
-      if (mindMap) return mindMap;
+      if (mindMap) return fileHash;
 
       const geminiResponse = await geminiAudioRequest(base64Content, file.mimeType!);
 

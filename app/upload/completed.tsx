@@ -25,6 +25,7 @@ const CompletedPage = () => {
     enabled: !!file?.length,
     queryFn: async () => {
       const existingMindMap = await getFileMindMap(file?.toString());
+      
       return existingMindMap?.[0] ?? null;
     }
   });
@@ -99,7 +100,7 @@ const CompletedPage = () => {
         <View style={styles.containerText}>
           <Text style={styles.title}>File pronto!</Text>
           <Text style={styles.message}>
-            Il tuo file è pronto per essere visualizzato o scaricato.
+            Il tuo file è pronto per essere visualizzato.
           </Text>
         </View>
       )}

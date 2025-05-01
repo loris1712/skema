@@ -107,7 +107,7 @@ export const geminiAudioCleanUp = async (text: string, type: string) => {
         {
           parts: [
             { text },
-            { text: "Questa è una trascrizione letterale di un audio di una lezione fatta in classe, trasformalo in un testo con solo contenuto informativo, come se fosse un libro" },
+            { text: "Questa è una trascrizione letterale di un audio di una lezione fatta in classe, trasformalo in un testo con solo contenuto informativo, come se fosse un libro e non devi parlare tu." },
           ],
         },
       ],
