@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/account/_layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/account/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eas.json" beforeDir="false" afterPath="$PROJECT_DIR$/eas.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/upload/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/upload/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebaseConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/firebaseConfig.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -60,7 +64,7 @@
     &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.android.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/archie/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/archie/WebstormProjects/Personal/skema/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -136,6 +140,8 @@
       <workItem from="1745573030697" duration="687000" />
       <workItem from="1746006516696" duration="907000" />
       <workItem from="1746092619800" duration="976000" />
+      <workItem from="1746180439614" duration="754000" />
+      <workItem from="1746345073242" duration="3612000" />
     </task>
     <servers />
   </component>

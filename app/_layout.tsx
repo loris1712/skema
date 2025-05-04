@@ -73,6 +73,7 @@ function RootLayoutNav() {
                     <Stack.Screen name="upload" options={{ headerShown: false }} />
                     <Stack.Screen name="list" options={{ headerShown: false }} />
                     <Stack.Screen name="mindmap" options={{ headerShown: false }} />
+                    <Stack.Screen name="account" options={{ headerShown: false }} />
                 </Stack>
             </ThemeProvider>
         </AppClientQuery>

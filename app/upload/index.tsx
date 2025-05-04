@@ -205,7 +205,7 @@ const UploadPage = () => {
           isLoading && (<ActivityIndicator size={"small"} color={"white"}/>)
       }
 
-      {!!selectedFile?.name && (
+      {!!selectedFile?.name ? (
         <View>
           <PrimaryButton
             disabled={isLoading}
@@ -227,7 +227,12 @@ const UploadPage = () => {
             }
           />
         </View>
-      )}
+      ) : <View>
+        <PrimaryButton isWhite text={"Account"} onPress={()=> {
+          router.push("/account");
+        }}/>
+      </View>
+      }
     </View>
   );
 };

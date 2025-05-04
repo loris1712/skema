@@ -6,7 +6,7 @@ import {useRouter} from 'expo-router';
 import {useState} from "react";
 
 
-import {signInWithEmailAndPassword} from "firebase/auth";
+import {signInWithEmailAndPassword,setPersistence, browserLocalPersistence} from "firebase/auth";
 import {auth} from "@/firebaseConfig";
 import {Text, View} from "@/components/Themed";
 import shared from "@/styles/shared";
@@ -23,13 +23,17 @@ const LoginPage = () => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const router = useRouter();
-    const {setItem} = useAsyncStorage('user-id')
+    const {setItem:setIDItem} = useAsyncStorage('user-id');
+    const {setItem: setTokenItem} = useAsyncStorage('user-token')
 
     const signInMutation = useMutation({
         mutationKey: ['login'],
         mutationFn: async ({email, password}: any) => {
             const result = await signInWithEmailAndPassword(auth, email, password);
-            await setItem(result.user.uid, () => {
+            const token = await result.user.getIdTokenResult();
+            console.log({token});
+            await setTokenItem(token.token)
+            await setIDItem(result.user.uid, () => {
             })
             return result.user;
         },

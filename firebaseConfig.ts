@@ -1,12 +1,15 @@
 import { initializeApp } from 'firebase/app';
 import { initializeAuth } from 'firebase/auth';
+import * as firebaseAuth from 'firebase/auth';
 
+const reactNativePersistence = (firebaseAuth as any).getReactNativePersistence;
 
 
 import { getAuth } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 
 import { getAnalytics } from "firebase/analytics";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDvrRzjLkCUgk1KLsbzV5FcEqlpUWbd8TA",
@@ -21,6 +24,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = initializeAuth(app);
-
+const auth = initializeAuth(app, {
+    persistence: reactNativePersistence(AsyncStorage),
+});
 export { auth };
