@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca2601e2-7f7d-481d-9c5d-10d7d48be992" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/account/_layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/account/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/upload/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/upload/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firebaseConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/firebaseConfig.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +135,8 @@
       <workItem from="1746006516696" duration="907000" />
       <workItem from="1746092619800" duration="976000" />
       <workItem from="1746180439614" duration="754000" />
-      <workItem from="1746345073242" duration="3612000" />
+      <workItem from="1746345073242" duration="3924000" />
+      <workItem from="1746471333104" duration="601000" />
     </task>
     <servers />
   </component>
