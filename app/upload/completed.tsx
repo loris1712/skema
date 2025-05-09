@@ -57,7 +57,7 @@ const CompletedPage = () => {
 
       setCleanedText(cleanedWithoutSymbols ?? "");
       setHasCleaned(true); // Aggiorna hasCleaned
-      Alert.alert("Pulito", "Il testo è stato ripulito con successo.");
+      Alert.alert("Sbobinato!", "La sbobina é stata prodotta con successo.");
     } catch (err) {
       console.error("Errore durante la pulizia:", err);
       Alert.alert("Errore", "Non è stato possibile pulire il testo.");
@@ -108,7 +108,7 @@ const CompletedPage = () => {
       <View style={styles.uploadButtonsWrapper}>
         {isAudio && (
           <View>
-            <Text style={styles.generatedTextLabel}>Testo generato</Text>
+            <Text style={styles.generatedTextLabel}>Trascrizione letterale</Text>
 
             <ScrollView style={{ maxHeight: 320 }} nestedScrollEnabled>
               <Text style={styles.generatedText}>
@@ -129,7 +129,7 @@ const CompletedPage = () => {
               {!hasCleaned && (
                 <PrimaryButton
                   onPress={handleCleanText}
-                  text={isCleaning ? "Riassunto in corso..." : "Riassumi"}
+                  text={isCleaning ? "Sbobina in corso..." : "Sbobiniamo?"}
                 />
               )}
 

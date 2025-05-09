@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TouchableOpacity, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import {TouchableOpacity, StyleSheet, Alert, Text, ActivityIndicator} from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { useMutation } from '@tanstack/react-query';
 import * as FileSystem from 'expo-file-system';
@@ -158,34 +158,7 @@ const UploadPage = () => {
       <PageLogoHeading asHeader title="Carica il tuo file" />
       <View style={styles.uploadButtonsWrapper}>
         <DashedLine />
-        <TouchableOpacity
-          onPress={() => {
-            setSelectedType('pdf');
-            pickDocument('application/pdf').then().catch();
-          }}
-        >
-          <FileUploadButton
-            selected={!!selectedFile?.name && selectedType === 'pdf'}
-            filename={selectedFile?.name}
-            text="PDF File"
-            onCancel={onCancel}
-          />
-        </TouchableOpacity>
-        <DashedLine />
-        <TouchableOpacity
-          onPress={() => {
-            setSelectedType('word');
-            pickDocument('application/msword').then().catch();
-          }}
-        >
-          <FileUploadButton
-            selected={!!selectedFile?.name && selectedType === 'word'}
-            filename={selectedFile?.name}
-            text="Word File"
-            onCancel={onCancel}
-          />
-        </TouchableOpacity>
-        <DashedLine />
+
         <TouchableOpacity
           onPress={() => {
             setSelectedType('audio');
@@ -195,11 +168,45 @@ const UploadPage = () => {
           <FileUploadButton
             selected={!!selectedFile?.name && selectedType === 'audio'}
             filename={selectedFile?.name}
-            text="Audio File"
+            text="Audio -> Sbobina"
             onCancel={onCancel}
           />
         </TouchableOpacity>
         <DashedLine />
+
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedType('pdf');
+            pickDocument('application/pdf').then().catch();
+          }}
+        >
+          <FileUploadButton
+            selected={!!selectedFile?.name && selectedType === 'pdf'}
+            filename={selectedFile?.name}
+            text="Sbobina -> Skema"
+            onCancel={onCancel}
+          />
+          <Text style={styles.subtitle}>PDF</Text>
+        </TouchableOpacity>
+        <DashedLine />
+
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedType('word');
+            pickDocument('application/msword').then().catch();
+          }}
+        >
+          <FileUploadButton
+            selected={!!selectedFile?.name && selectedType === 'word'}
+            filename={selectedFile?.name}
+            text="Sbobina -> Skema"
+            onCancel={onCancel}
+          />
+          <Text style={styles.subtitle}>Word</Text>
+
+        </TouchableOpacity>
+        <DashedLine />
+        
       </View>
       {
           isLoading && (<ActivityIndicator size={"small"} color={"white"}/>)
@@ -217,14 +224,13 @@ const UploadPage = () => {
                 if(selectedType === 'audio') {
                   transcribeAudioFileMutation.mutate(selectedFile)
                 }else {
+                  Alert.alert("sei sicuro?", "Questa funzione è attualmente in versione Beta. Stiamo lavorando per migliorarla, ma puoi già iniziare a provarla!");
                   generateMindMapMutation.mutate(selectedFile);
                 }
               }
 
             }}
-            text={
-              isLoading ? 'Loading...' : 'Genera'
-            }
+            text={isLoading ? 'Loading...' : (selectedType === 'audio' ? 'Sbobiniamo?' : 'Schemiamo?')}
           />
         </View>
       ) : <View>
@@ -245,6 +251,13 @@ const styles = StyleSheet.create({
   uploadButtonsWrapper: {
     flex: 1,
   },
+  subtitle: {
+    fontSize: normalize(14),
+    fontWeight: "600",
+    color: "#FFFFFF",
+    marginTop: normalize(10),
+    marginBottom: normalize(10),
+},
 });
 
 export default UploadPage;
