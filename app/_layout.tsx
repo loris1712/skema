@@ -66,7 +66,7 @@ function RootLayoutNav() {
     return (
         <AppClientQuery>
             <ThemeProvider value={DarkTheme}>
-                <Stack initialRouteName="upload">
+                <Stack initialRouteName="onboarding">
                     <Stack.Screen name="index" options={{ headerShown: false }} />
                     <Stack.Screen name="auth" options={{ headerShown: false }} />
                     <Stack.Screen name="onboarding" options={{ headerShown: false }} />

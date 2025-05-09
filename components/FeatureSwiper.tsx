@@ -7,27 +7,24 @@ const { width } = Dimensions.get("window")
 interface FeatureItem {
     id: number
     title: string
-    image: string
+    subtitle: string
 }
 
 const features: FeatureItem[] = [
     {
         id: 1,
-        title: "Feature 1",
-        image:
-            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-24%20at%2007.50.37-FgHNiLpptLAcPT2IbRilXxrkVJVzTx.png",
+        title: "Trasforma la tua sbobina in skema!",
+        subtitle:"Carichi il testo, ottieni uno schema logico pronto da studiare. -70% tempo. +100% chiarezza. Taglia il superfluo, collega i concetti, ti dà la base per il tuo skema digitale! Personalizza tutto. Studia meglio.",
     },
     {
         id: 2,
-        title: "Feature 2",
-        image:
-            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-24%20at%2007.50.37-FgHNiLpptLAcPT2IbRilXxrkVJVzTx.png",
+        title: "Trascrizione Audio Intelligente",
+        subtitle: "Rivoluzionaria per la sua semplicità d’uso, Skema parte da una registrazione audio e ti offre due opzioni: una trascrizione sintetica, chiara e immediata, oppure una versione tecnica, arricchita con fonti accademiche e contenuti di approfondimento.",
     },
     {
         id: 3,
-        title: "Feature 3",
-        image:
-            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-24%20at%2007.50.37-FgHNiLpptLAcPT2IbRilXxrkVJVzTx.png",
+        title: "Ottimizzato Per Chi Studia Davvero",
+        subtitle:"Skema è pensato per studenti, ricercatori e chiunque abbia bisogno di contenuti chiari e pronti da ripetere. I testi generati sono suddivisi in paragrafi logici, con una formattazione pulita che facilita la lettura e la memorizzazione. Che tu stia preparando un esame, una presentazione o solo ripassando, Skema ti aiuta a risparmiare tempo e ad avere tutto sotto controllo.",
     },
 ]
 
@@ -59,11 +56,9 @@ export default function FeatureSwiper({ onComplete }: FeatureSwiperProps) {
             >
                 {features.map((feature) => (
                     <View key={feature.id} style={styles.slide}>
-                        <View style={styles.imageContainer}>
-                            <Image source={{ uri: feature.image }} style={styles.featureImage} resizeMode="cover" />
-                        </View>
                         <Text style={styles.title}>{feature.title}</Text>
-                    </View>
+                        <Text style={styles.subtitle}>{feature.subtitle}</Text>
+                        </View>
                 ))}
             </Swiper>
         </View>
@@ -121,6 +116,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: normalize(28),
+        fontWeight: "600",
+        color: "#FFFFFF",
+        marginTop: normalize(20),
+    },
+    subtitle: {
+        fontSize: normalize(18),
         fontWeight: "600",
         color: "#FFFFFF",
         marginTop: normalize(20),
