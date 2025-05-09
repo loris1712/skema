@@ -27,4 +27,4 @@ const analytics = getAnalytics(app);
 const auth = initializeAuth(app, {
     persistence: reactNativePersistence(AsyncStorage),
 });
-export { auth };
+export { auth, app, analytics };

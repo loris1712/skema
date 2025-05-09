@@ -4,14 +4,13 @@ import DashLine from "@/atoms/DashedLine";
 import {normalize} from "@/utils/normalize";
 import {Alert, Text, TouchableOpacity, View} from "react-native";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
-import {getAuth} from "firebase/auth";
 import PrimaryButton from "@/atoms/PrimaryButton";
 import {useRouter} from "expo-router";
+import { auth } from "@/firebaseConfig";
 
 
 const AccountIndex = () => {
     const {removeItem} = useAsyncStorage('user-id');
-    const auth = getAuth();
     const user = auth.currentUser;
     const router = useRouter();
 
