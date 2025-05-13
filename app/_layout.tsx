@@ -39,7 +39,7 @@ export default function RootLayout() {
             if (loaded) {
                 SplashScreen.hideAsync().then(console.log);
                 if (onboardingCompleted === 'completed') {
-                    router.push('/list');
+                    router.push('/onboarding');
                 } else {
                     router.push('/onboarding');
                 }

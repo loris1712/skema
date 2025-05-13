@@ -31,7 +31,7 @@ const LoginPage = () => {
         mutationFn: async ({email, password}: any) => {
             const result = await signInWithEmailAndPassword(auth, email, password);
             const token = await result.user.getIdTokenResult();
-            console.log({token});
+            //console.log({token});
             await setTokenItem(token.token)
             await setIDItem(result.user.uid, () => {
             })

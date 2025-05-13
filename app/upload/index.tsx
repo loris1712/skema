@@ -15,6 +15,7 @@ import DashedLine from '@/atoms/DashedLine';
 import { saveFileMindMap, getFileMindMap } from '@/services/supabase';
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {DocumentPickerAsset} from "expo-document-picker/src/types";
+import { Audio } from 'expo-av';
 
 const UploadPage = () => {
   const router = useRouter();
@@ -93,57 +94,82 @@ const UploadPage = () => {
     },
   });
 
+  function delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function splitBase64Audio(base64Content: string): Promise<string[]> {
+    const size = base64Content.length;
+    const segmentCount = size > 3_000_000 ? 3 : size > 1_500_000 ? 2 : 1;
+    const segmentSize = Math.floor(size / segmentCount);
+  
+    const parts: string[] = [];
+  
+    for (let i = 0; i < segmentCount; i++) {
+      const start = i * segmentSize;
+      const end = i === segmentCount - 1 ? size : (i + 1) * segmentSize;
+      parts.push(base64Content.slice(start, end));
+    }
+  
+    return parts;
+  }  
+
   const transcribeAudioFileMutation = useMutation({
     mutationKey: ['transcribeAudioFile'],
     mutationFn: async (file: DocumentPickerAsset) => {
       const userId = await getItem();
       const fileInfo = await FileSystem.getInfoAsync(file.uri);
-
+  
+      if (!fileInfo.exists) {
+        Alert.alert("No file found.", "Errore nel trovare il file.");
+        return;
+      }
+  
       const base64Content = await FileSystem.readAsStringAsync(file.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-
-      if (!fileInfo.exists) {
-        Alert.alert("No file found.", "Error generating MindMap for file.");
-        return;
-      }
-
+  
       const fileHash = await getFileHash(base64Content);
-
       const existingMindMap = await getFileMindMap(fileHash);
-      const mindMap = existingMindMap?.[0] ?? null;
-      if (mindMap) return fileHash;
-
-      const geminiResponse = await geminiAudioRequest(base64Content, file.mimeType!);
-
-      if(geminiResponse){
-        const payload = {
-          id: fileHash,
-          name: selectedFile?.name,
-          mindMap: {text: geminiResponse},
-          extension: selectedType,
-          type: selectedType,
-          fileHash: fileHash,
-          userId: userId,
-          createdAt: new Date().toISOString()
-        };
-        // api to upload to server
-        const { error } = await saveFileMindMap(payload);
-        if(error) {
-          throw new Error(error.message);
+      if (existingMindMap?.[0]) return fileHash;
+  
+      const parts = await splitBase64Audio(base64Content);
+      let finalText = "";
+  
+      for (let i = 0; i < parts.length; i++) {
+        const partResponse = await geminiAudioRequest(parts[i], file.mimeType!);
+        if (partResponse) finalText += partResponse + "\n";
+  
+        if (i < parts.length - 1) {
+          await delay(3000); // 3s di delay per non stressare Gemini
         }
-
-        return fileHash
       }
+  
+      const payload = {
+        id: fileHash,
+        name: selectedFile?.name,
+        mindMap: { text: finalText },
+        extension: selectedType,
+        type: selectedType,
+        fileHash: fileHash,
+        userId: userId,
+        createdAt: new Date().toISOString()
+      };
+  
+      const { error } = await saveFileMindMap(payload);
+      if (error) throw new Error(error.message);
+  
+      return fileHash;
     },
     onSuccess: async (fileHash: any) => {
       router.push(`/upload/completed?file=${fileHash}`);
     },
     onError: (error) => {
-      console.error({error});
-      Alert.alert("Something Happened.", "Error generating MindMap for file.");
+      console.error({ error });
+      Alert.alert("Errore", "Errore generando la mappa mentale.");
     }
-  })
+  });
+  
 
   const onCancel = () => {
     setSelectedFile(null);
@@ -170,46 +196,48 @@ const UploadPage = () => {
             filename={selectedFile?.name}
             text="Audio -> Sbobina"
             onCancel={onCancel}
+             active="yes"
           />
         </TouchableOpacity>
         <DashedLine />
 
-        <TouchableOpacity
+        {/*<TouchableOpacity
           onPress={() => {
             setSelectedType('pdf');
             pickDocument('application/pdf').then().catch();
           }}
-        >
+        >*/}
           <FileUploadButton
             selected={!!selectedFile?.name && selectedType === 'pdf'}
             filename={selectedFile?.name}
-            text="Sbobina -> Skema"
+            text="Sbobina -> Skema (PDF)"
             onCancel={onCancel}
+            active="no"
+
           />
-          <Text style={styles.subtitle}>PDF</Text>
-        </TouchableOpacity>
+        {/*</TouchableOpacity>*/}
         <DashedLine />
 
-        <TouchableOpacity
+        {/*<TouchableOpacity
           onPress={() => {
             setSelectedType('word');
             pickDocument('application/msword').then().catch();
           }}
-        >
+        >*/}
           <FileUploadButton
             selected={!!selectedFile?.name && selectedType === 'word'}
             filename={selectedFile?.name}
-            text="Sbobina -> Skema"
+            text="Sbobina -> Skema (Word)"
             onCancel={onCancel}
+             active="no"
           />
-          <Text style={styles.subtitle}>Word</Text>
 
-        </TouchableOpacity>
+        {/*</TouchableOpacity>*/}
         <DashedLine />
         
       </View>
       {
-          isLoading && (<ActivityIndicator size={"small"} color={"white"}/>)
+        isLoading && (<ActivityIndicator size={"small"} color={"white"}/>)
       }
 
       {!!selectedFile?.name ? (

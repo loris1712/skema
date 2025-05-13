@@ -4,50 +4,74 @@ import { StyleSheet } from "react-native"
 import { normalize } from '@/utils/normalize'
 import Colors from '@/constants/Colors'
 
-
 interface Props {
     text: string,
     selected?: boolean,
     filename?: string,
     onCancel?:()=> void
+    active: string,
 }
 
-const FileUploadButton = ({ text, selected, filename, onCancel }: Props) => {
+const FileUploadButton = ({ text, selected, filename, onCancel, active}: Props) => {
   return (
-    <View style={styles.container}>
-      {selected ? (
-        <View>
-          <Text style={styles.selectedTitle}>{text}</Text>
-          <View style={styles.selectedFileWrapper}>
-            <Text style={styles.selectedFilename}>{filename}</Text>
-            <TouchableOpacity onPress={onCancel}>
-              <Image
-                style={styles.cancelImage}
-                source={require('@/assets/images/cancel.png')}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      ) : (
-        <View style={styles.itemWrapper}>
+    <View
+  style={[
+    styles.container,
+    active === 'no' && styles.disabledContainer
+  ]}
+>
+  {selected ? (
+    <View>
+      <Text style={styles.selectedTitle}>{text}</Text>
+      <View style={styles.selectedFileWrapper}>
+        <Text style={styles.selectedFilename}>{filename}</Text>
+        <TouchableOpacity onPress={onCancel}>
           <Image
-            style={styles.icon}
-            source={require('@/assets/images/uploadIcon.png')}
+            style={styles.cancelImage}
+            source={require('@/assets/images/cancel.png')}
           />
-          <Text
-            lightColor={Colors.light.text}
-            style={styles.text}
-            darkColor={Colors.dark.text}
-          >
-            {text}
-          </Text>
-        </View>
-      )}
+        </TouchableOpacity>
+      </View>
     </View>
+  ) : (
+    <View style={styles.itemWrapper}>
+      <Image
+        style={active === 'no'
+          ? styles.iconBig 
+          : styles.icon}
+        source={
+          active === 'no'
+            ? require('@/assets/images/lockIcon.png')
+            : require('@/assets/images/uploadIcon.png')
+        }
+      />
+      <Text
+        style={[
+          styles.text,
+          active === 'no' && styles.disabledText
+        ]}
+      >
+        {text}
+      </Text>
+    </View>
+  )}
+</View>
+
   );
 };
 
 const styles = StyleSheet.create({
+  disabledContainer: {
+    opacity: 0.5,
+  },
+  
+  disabledText: {
+    color: '#FFFFFF66',
+  },
+  
+  disabledIcon: {
+    tintColor: '#FFFFFF66',
+  },  
   container: {
     paddingVertical: normalize(16),
     minHeight: normalize(80),
@@ -57,6 +81,10 @@ const styles = StyleSheet.create({
   icon: {
     height: normalize(16),
     width: normalize(24),
+  },
+  iconBig: {
+    height: normalize(30),
+    width: normalize(30),
   },
   text: {
     fontWeight: '500',

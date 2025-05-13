@@ -5,11 +5,9 @@ import {
 import {MINDMAP_AI_PROMPT} from '@/constants/Prompts';
 import * as Crypto from 'expo-crypto';
 
-
 const API_KEY = 'AIzaSyC1YWP0X0cMClsJVSGosWzp-I_OBc8h6eM';
 const genAI = new GoogleGenerativeAI(API_KEY);
 const ai = new GoogleGenAI({ apiKey: API_KEY });
-
 
 const schema = {
   description: 'List of mind maps',
@@ -140,4 +138,3 @@ export const geminiAudioComparison = async (text: string, type: string) => {
     throw e;
   }
 };
-
