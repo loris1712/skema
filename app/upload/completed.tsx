@@ -109,10 +109,11 @@ const CompletedPage = () => {
         {isAudio && (
           <View>
             <Text style={styles.generatedTextLabel}>Trascrizione letterale</Text>
+            <Text style={styles.generatedTextLabel2}>La trascrizione potrebbe non essere precisa, se alcune parti mancano consigliamo di dividere il file audio in piu parti e riprovare l'upload.</Text>
 
             <ScrollView style={{ maxHeight: 320 }} nestedScrollEnabled>
               <Text style={styles.generatedText}>
-                {cleanedText ?? data?.mindMap?.text}
+                {cleanedText ?? data?.mindMap?.text ?? 'Non é stato trascritto alcun audio, riprova.'}
               </Text>
             </ScrollView>
 
@@ -176,9 +177,9 @@ const CompletedPage = () => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: normalize(120),
+    height: normalize(160),
     justifyContent: 'center',
-    marginVertical: normalize(16),
+    marginVertical: normalize(8),
   },
   uploadButtonsWrapper: {},
   buttonWrapper: {
@@ -214,11 +215,19 @@ const styles = StyleSheet.create({
   },
   generatedTextLabel: {
     color: "#fff",
-    marginBottom: normalize(10),
+    marginBottom: normalize(5),
     fontSize: normalize(18),
     fontWeight: '600',
-    marginTop: 20,
+    marginTop: 10,
   },
+
+  generatedTextLabel2: {
+    color: "#fff",
+    marginBottom: normalize(10),
+    fontSize: normalize(12),
+    fontWeight: '300',
+  },
+
   generatedText: {
     color: "#fff",
     fontSize: normalize(14),

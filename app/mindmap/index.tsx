@@ -1,7 +1,6 @@
 import { WebView } from 'react-native-webview';
 import {useLocalSearchParams} from 'expo-router'
 
-
 import { View } from '@/components/Themed';
 import PageLogoHeading from '@/atoms/PageLogoHeading';
 import sharedStyles from '@/styles/shared';

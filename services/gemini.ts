@@ -5,7 +5,7 @@ import {
 import {MINDMAP_AI_PROMPT} from '@/constants/Prompts';
 import * as Crypto from 'expo-crypto';
 
-const API_KEY = 'AIzaSyC1YWP0X0cMClsJVSGosWzp-I_OBc8h6eM';
+const API_KEY = 'AIzaSyDcdvHn7mQ5zMNwlh5e52ZCqBSdQz3GdWM';
 const genAI = new GoogleGenerativeAI(API_KEY);
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
@@ -91,6 +91,9 @@ export const geminiAudioRequest = async (base64: any, type: string) => {
         },
       ],
     });
+
+    console.log(response)
+
     return response.text;
   }catch (e) {
     console.log("GEMINI ERROR", {e})

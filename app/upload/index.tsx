@@ -62,7 +62,7 @@ const UploadPage = () => {
 
       const geminiResponse = await geminiFileRequest(base64Content);
       if (geminiResponse && fileHash) {
-        console.log({ geminiResponse });
+
         const responseJson = JSON.parse(geminiResponse);
         const payload = {
           id: fileHash,
@@ -98,11 +98,13 @@ const UploadPage = () => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async function splitBase64Audio(base64Content: string): Promise<string[]> {
+  function splitBase64Audio(base64Content: string, maxSegments = 3): string[] {
     const size = base64Content.length;
-    const segmentCount = size > 3_000_000 ? 3 : size > 1_500_000 ? 2 : 1;
-    const segmentSize = Math.floor(size / segmentCount);
   
+    if (size < 1000) return [base64Content];
+  
+    const segmentCount = Math.min(maxSegments, size);
+    const segmentSize = Math.floor(size / segmentCount);
     const parts: string[] = [];
   
     for (let i = 0; i < segmentCount; i++) {
@@ -112,7 +114,8 @@ const UploadPage = () => {
     }
   
     return parts;
-  }  
+  }
+    
 
   const transcribeAudioFileMutation = useMutation({
     mutationKey: ['transcribeAudioFile'],
@@ -133,15 +136,38 @@ const UploadPage = () => {
       const existingMindMap = await getFileMindMap(fileHash);
       if (existingMindMap?.[0]) return fileHash;
   
-      const parts = await splitBase64Audio(base64Content);
+      const parts = splitBase64Audio(base64Content);
       let finalText = "";
+      let errorDuringParts = false;
   
       for (let i = 0; i < parts.length; i++) {
-        const partResponse = await geminiAudioRequest(parts[i], file.mimeType!);
-        if (partResponse) finalText += partResponse + "\n";
+        try {
+          const partResponse = await geminiAudioRequest(parts[i], file.mimeType!);
+          if (partResponse) {
+            finalText += partResponse + "\n";
+          } else {
+            // se la risposta è vuota considera errore
+            errorDuringParts = true;
+            break;
+          }
+        } catch (e) {
+          errorDuringParts = true;
+          break;
+        }
   
+        // se non è l'ultimo pezzo, facciamo una pausa per non sovraccaricare il server
         if (i < parts.length - 1) {
-          await delay(3000); // 3s di delay per non stressare Gemini
+          await delay(3000);
+        }
+      }
+  
+      // fallback: se errore o testo finale vuoto, proviamo con la chiamata unica
+      if (errorDuringParts || finalText.trim() === "") {
+        try {
+          const result = await geminiAudioRequest(base64Content, file.mimeType!);
+          if (result) finalText = result;
+        } catch (e) {
+          throw e; // rilancia l'errore per la gestione onError
         }
       }
   
@@ -156,6 +182,8 @@ const UploadPage = () => {
         createdAt: new Date().toISOString()
       };
   
+      //console.log(finalText);
+  
       const { error } = await saveFileMindMap(payload);
       if (error) throw new Error(error.message);
   
@@ -168,8 +196,7 @@ const UploadPage = () => {
       console.error({ error });
       Alert.alert("Errore", "Errore generando la mappa mentale.");
     }
-  });
-  
+  });  
 
   const onCancel = () => {
     setSelectedFile(null);
@@ -184,6 +211,11 @@ const UploadPage = () => {
       <PageLogoHeading asHeader title="Carica il tuo file" />
       <View style={styles.uploadButtonsWrapper}>
         <DashedLine />
+
+        <View style={styles.newsContainer}>
+          <Text style={styles.generatedTextLabel}>Aggiornamento</Text>
+          <Text style={styles.generatedTextLabel2}>La funzione Audio/Sbobina é stata migliorata. Le funzionalitá PDF e Word non sono ancora disponibili, verranno rilasciate a breve.</Text>
+        </View>
 
         <TouchableOpacity
           onPress={() => {
@@ -285,6 +317,33 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     marginTop: normalize(10),
     marginBottom: normalize(10),
+},
+newsContainer: {
+  borderRadius: 12,
+  backgroundColor: 'rgba(0, 102, 255, 0.41)',
+  borderColor: '#0066FF',
+  borderWidth: 2,
+  padding: 15,
+  marginTop: 25,
+},
+generatedTextLabel: {
+  color: "#fff",
+  marginBottom: normalize(5),
+  fontSize: normalize(18),
+  fontWeight: '600',
+  width: '95%',
+  marginLeft: 'auto',
+  marginRight: 'auto'
+},
+
+generatedTextLabel2: {
+  color: "#fff",
+  marginBottom: normalize(10),
+  fontSize: normalize(12),
+  fontWeight: '300',
+  width: '95%',
+  marginLeft: 'auto',
+  marginRight: 'auto'
 },
 });
 

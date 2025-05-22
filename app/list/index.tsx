@@ -4,14 +4,13 @@ import shared from "@/styles/shared";
 import {View} from "@/components/Themed";
 import PageLogoHeading from "@/atoms/PageLogoHeading";
 import React, {useEffect} from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity} from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, Linking, Alert} from "react-native";
 import {normalize} from "@/utils/normalize";
 import {getUserMapList} from "@/services/supabase";
 import PrimaryButton from "@/atoms/PrimaryButton";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import DashedLine from "@/atoms/DashedLine";
-import dayjs from 'dayjs'
-
+import dayjs from 'dayjs';
 
 const MyList = () => {
 
@@ -40,9 +39,6 @@ const MyList = () => {
             <View style={{flex: 1, gap: normalize(0), marginTop: normalize(10)}}>
                 <DashedLine/>
                 <FlatList
-                    contentContainerStyle={{
-                        height: '100%',
-                    }}
                     refreshing={isFetching || isLoading}
                     onRefresh={()=> refetch()}
                     data={list}
@@ -64,7 +60,6 @@ const MyList = () => {
                                 </TouchableOpacity>
                                 <DashedLine/>
                             </>
-
                         )
                     }}/>
 
@@ -75,6 +70,22 @@ const MyList = () => {
                 <PrimaryButton text={"Carica"} onPress={() => {
                     router.push('/upload')
                 }}/>
+                <TouchableOpacity
+  onPress={async () => {
+    const url = 'mailto:skeema.app@gmail.com';
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      Linking.openURL(url);
+    } else {
+      Alert.alert("Scrivici", "skeema.app@gmail.com");
+    }
+  }}
+>
+  <View style={{ width: '100%', padding: 20 }}>
+    <Text style={{ color: 'white', textAlign: 'center' }}>Richiedi supporto</Text>
+  </View>
+</TouchableOpacity>
+
             </View>
         </View>
     )
